@@ -1,0 +1,69 @@
+---
+layout: post
+title: "[Python] 9251 LCS"
+subtitle: "[Python] 9251 LCS"
+categories: Algorithm
+tags: 문제풀이 DP
+comments: true
+
+
+---
+## [9251 LCS](https://www.acmicpc.net/problem/9251)
+
+## 문제
+LCS(Longest Common Subsequence, 최장 공통 부분 수열)문제는 두 수열이 주어졌을 때, 모두의 부분 수열이 되는 수열 중 가장 긴 것을 찾는 문제이다.
+
+예를 들어, ACAYKP와 CAPCAK의 LCS는 ACAK가 된다.
+
+
+## 입력
+
+첫째 줄과 둘째 줄에 두 문자열이 주어진다. 문자열은 알파벳 대문자로만 이루어져 있으며, 최대 1000글자로 이루어져 있다.
+
+## 출력
+
+첫째 줄에 입력으로 주어진 두 문자열의 LCS의 길이를 출력한다.
+
+## 풀이
+
+- DP를 통해 풀 수 있습니다. 점화식은 다음과 같습니다. 
+
+```
+X[i] == Y[j]일 때
+LCS(Xi, Yj) = LCS(Xi - 1, Yj - 1) + 1
+
+X[i] != Y[j]일 때
+LCS(Xi, Yj) = LCS(Xi - 1, Yj - 1)
+LCS(Xi, Yj) = max(LCS(Xi - 1, Yj), LCS(Xi, Yj - 1))
+```
+
+- **X[i] == Y[j]**
+  - 먼저 X[i] == Y[j]일 때는 X[i](== Y[j])가 무조건 LCS에 포함되어야 한다. 
+  - 즉, LCS(Xi-1,Yj-1)에서 1을 더해주는 값이 LCS(Xi, Yj)이다. 
+
+- **X[i] != Y[j]**
+  - 다음으로 X[i] != Y[j] 일때는 정답에 X[i]가 뽑힐 수도 있고 Y[j]가 뽑힐수도 있다. 
+  - 즉, LCS(Xi-1, Yj)와 LCS(Xi, Yj-1)을 비교해서 큰 값을 LCS(Xi, Yj)로 한다. 
+
+- 문제 예시로 DP를 적용해보면 다음과 같습니다. 
+
+![LCS1](https://yunsikus.github.io/assets/img/post_img/LCS1.jpg)
+
+```python
+S1 = input()
+S2 = input()
+
+# S1 = 'ACAYKP'
+# S2 = 'CAPCAKA'
+
+my_mat = [[0]*(len(S1)+1) for _ in range(len(S2)+1)]
+
+for i in range(1, len(S2)+1):
+    for j in range(1, len(S1)+1):
+        if S1[j-1] == S2[i-1]:
+            my_mat[i][j] = my_mat[i-1][j-1]+1
+        else:
+            my_mat[i][j] = max(my_mat[i-1][j], my_mat[i][j-1])
+
+print(my_mat[-1][-1])
+```

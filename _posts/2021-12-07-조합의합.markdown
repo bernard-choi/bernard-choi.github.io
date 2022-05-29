@@ -1,0 +1,46 @@
+---
+layout: post
+title: "[Python] Leetcode 39. combination-sum"
+subtitle: "[Python] Leetcode 39. combination-sum"
+categories: Algorithm
+tags: 문제풀이 자료구조 permutation combination 순열 조합
+comments: true
+
+
+---
+## [Leetcode 39 조합의 합](https://leetcode.com/problems/combination-sum/)
+
+## 문제
+
+숫자 집합 candidates를 조합하여 합이 target이 되는 원소를 나열하라. 각 원소는 중복으로 나열 가능하다. 
+
+**입력**
+```python
+candidates = [2,3,6,7]
+target = 7
+```
+
+**출력**
+```python
+[
+  [7],
+  [2,2,3]
+]
+```
+
+## 풀이
+
+- depth를 체크하는 대신 csum이 target보다 크거나 같은 경우 재귀에서 탈출하도록 짠다. 
+
+```python
+answer = []
+def combination(csum, path, start):
+    if csum >= target:
+        if csum == target:
+            answer.append(path)
+        return
+    for i in range(start, len(candidates)):
+        combination(csum+candidates[i], path+[candidates[i]], i)
+
+combination(0, [], 0)
+```

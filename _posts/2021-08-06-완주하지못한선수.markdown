@@ -1,0 +1,66 @@
+---  
+layout: post  
+title: "[Python] 완주하지 못한 선수"  
+subtitle: "[Python] 완주하지 못한 선수"  
+categories: Algorithm
+tags: 문제풀이 Hash
+comments: true  
+---  
+
+## 문제
+
+수많은 마라톤 선수들이 마라톤에 참여하였습니다. 단 한 명의 선수를 제외하고는 모든 선수가 마라톤을 완주하였습니다.
+
+마라톤에 참여한 선수들의 이름이 담긴 배열 participant와 완주한 선수들의 이름이 담긴 배열 completion이 주어질 때, 완주하지 못한 선수의 이름을 return 하도록 solution 함수를 작성해주세요.
+
+## 제한사항
+
+- 마라톤 경기에 참여한 선수의 수는 1명 이상 100,000명 이하입니다.
+- completion의 길이는 participant의 길이보다 1 작습니다.
+- 참가자의 이름은 1개 이상 20개 이하의 알파벳 소문자로 이루어져 있습니다.
+- 참가자 중에는 동명이인이 있을 수 있습니다.
+
+
+## 입출력 예
+
+![완주하지못한선수](https://yunsikus.github.io/assets/img/post_img/완주하지못한선수.jpg)
+
+## 입출력 예 설명
+
+예제 #1
+"leo"는 참여자 명단에는 있지만, 완주자 명단에는 없기 때문에 완주하지 못했습니다.
+
+예제 #2
+"vinko"는 참여자 명단에는 있지만, 완주자 명단에는 없기 때문에 완주하지 못했습니다.
+
+예제 #3
+"mislav"는 참여자 명단에는 두 명이 있지만, 완주자 명단에는 한 명밖에 없기 때문에 한명은 완주하지 못했습니다.
+
+## 풀이
+
+두 가지 방법으로 풀 수 있습니다. 첫번째는, Dictionary 즉 Hash 자료구조를 이용하는 것입니다. 
+선수이름과 개수를 key, value로 지닌 Dictionary를 생성합니다. 그리고 두 딕셔너리의 차집합이 정답이 됩니다. 
+
+또 다른 방법은 participant와 completion을 정렬 후, 차례로 추출하여 값이 같은지 확인합니다. 만약 다른 값이 생긴다면 participant에 있는 값이 completion에는 없는 것으로 해당 value를 정답으로 반환합니다. 마지막 추출까지 다른 값이 안나올 경우 participant의 마지막 값이 정답이 됩니다. 
+
+```python
+# 방법 1 (Counter 사용)
+from collections import Counter
+
+def solution(participant, completion):
+    player = Counter(participant) - Counter(completion)
+
+    return list(player.keys())[0]
+
+
+# 방법 2 (sort 사용)
+def solution(participant, completion):
+    participant.sort()
+    completion.sort()
+
+    for part, comp in zip(participant, completion):
+        if part != comp:
+            return part
+
+    return participant[-1]
+```

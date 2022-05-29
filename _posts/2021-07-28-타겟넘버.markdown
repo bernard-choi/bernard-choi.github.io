@@ -1,0 +1,59 @@
+---  
+layout: post  
+title: "[Python] 타겟넘버"  
+subtitle: "[Python] 타겟넘버"  
+categories: Algorithm
+tags: 문제풀이 DFS
+comments: true  
+---  
+
+## [프로그래머스 타겟넘버](https://programmers.co.kr/learn/courses/30/lessons/43165)
+
+## 문제
+
+n개의 음이 아닌 정수가 있습니다. 이 수를 적절히 더하거나 빼서 타겟 넘버를 만들려고 합니다. 예를 들어 [1, 1, 1, 1, 1]로 숫자 3을 만들려면 다음 다섯 방법을 쓸 수 있습니다.
+
+![타겟넘버1](https://yunsikus.github.io/assets/img/post_img/타겟넘버1.jpg)
+
+사용할 수 있는 숫자가 담긴 배열 numbers, 타겟 넘버 target이 매개변수로 주어질 때 숫자를 적절히 더하고 빼서 타겟 넘버를 만드는 방법의 수를 return 하도록 solution 함수를 작성해주세요.
+
+
+## 제한사항
+
+- 주어지는 숫자의 개수는 2개 이상 20개 이하입니다.
+- 각 숫자는 1 이상 50 이하인 자연수입니다.
+- 타겟 넘버는 1 이상 1000 이하인 자연수입니다.
+
+## 입출력 예
+
+![타겟넘버2](https://yunsikus.github.io/assets/img/post_img/타겟넘버2.jpg)
+
+## 입출력 예 설명
+
+문제에 나온 예와 같습니다.
+
+## 풀이
+
+- DFS로 풀 수 있습니다. 
+- answer를 0으로 선언.
+- DFS 함수를 생성합니다. `n`은 `numbers`의 몇번째 원소까지 계산된건지, `value`는 계산된 값입니다.
+  - 재귀로 다음 dfs 함수를 호출할때 `n`에 `n+1` 그리고 `value`에 `numbers[n]`을 더한 값을 넘깁니다. 
+  - 마찬가지로 `n`에 `n+1` 그리고 `value`에 `numbers[n]`을 뺸 값을 넘깁니다. 
+  - `n`이 `numbers`의 길이가 같고 `value`가 `target`일 경우 `answer`에 1을 더해줍니다. 
+- dfs(0,0)을 실행한 후 `answer`를 최종 반환합니다. 
+
+
+```python
+def solution(numbers, target):
+    answer = 0
+    def dfs(n, value):
+        nonlocal answer
+        if n == len(numbers):
+            if value == target:
+                answer += 1
+            return
+        dfs(n+1, value+numbers[n])
+        dfs(n+1, value-numbers[n])
+    dfs(0,0)
+    return answer
+```

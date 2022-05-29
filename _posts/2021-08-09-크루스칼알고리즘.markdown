@@ -1,0 +1,115 @@
+---  
+layout: post  
+title: "[Algorithm] 크루스칼 알고리즘"  
+subtitle: "[Algorithm] 크루스칼 알고리즘"  
+categories: Algorithm
+tags: 알고리즘 크루스칼 graph
+comments: true  
+
+
+---  
+## 신장 트리(Spanning Tree)
+
+- 그래프에서 모든 노드를 포함하면서 사이클이 존재하지 않는 부분 그래프
+  - 모든 노드가 포함되어 서로 연결되면서 사이클이 존재하지 않는다는 조건은 트리의 조건
+
+
+## 크루스칼 알고리즘
+- 대표적인 최소 신장 트리 알고리즘
+- 그리디 알고리즘으로 분류
+- 구체적인 동작 과정은 다음과 같다.
+  - 1) 간선 데이터를 비용에 따라 오름차순으로 정렬
+  - 2) 간선을 하나씩 확인하며 현재의 간선이 사이클을 발생시키는지 확인(union-find)
+    - 1) 사이클이 발생하지 않는 경우 최소 신장 트리에 포함시킵니다. 
+    - 2) 사이클이 발생하는 경우 최소 신장 트리에 포함시키지 않습니다. 
+  - 모든 간선에 대하여 2번의 과정을 반복
+
+
+## 예시
+
+아래의 그래프에서 모든 노드를 포함하면서 사이클이 존재하지 않는 그래프를 찾아봅시다. 
+
+![크루스칼1](https://yunsikus.github.io/assets/img/post_img/크루스칼1.jpg)
+
+일단 모든 노드를 최대한 적은 비용으로 연결시키면 되기 때문에 간선 정보를 오름차순으로 정렬한뒤에 비용이 적은 간선부터 차근차근 그래프에 포함시키면 됩니다. 
+
+![크루스칼2](https://yunsikus.github.io/assets/img/post_img/크루스칼2.jpg)
+
+아래 그림은 초기 상태입니다. 
+
+![크루스칼3](https://yunsikus.github.io/assets/img/post_img/크루스칼3.jpg)
+
+이베 바로 첫번째 간선부터 선택해보겠습니다. 
+
+![크루스칼4](https://yunsikus.github.io/assets/img/post_img/크루스칼4.jpg)
+
+두 번째 간선을 선택하겠습니다. 
+
+![크루스칼5](https://yunsikus.github.io/assets/img/post_img/크루스칼5.jpg)
+
+세 번째 간선을 선택해봅시다. 
+
+![크루스칼6](https://yunsikus.github.io/assets/img/post_img/크루스칼6.jpg)
+
+네 번쨰 간선을 선택해봅시다. 
+
+![크루스칼7](https://yunsikus.github.io/assets/img/post_img/크루스칼7.jpg)
+
+다섯번째 간선을 선택해봅시다. 
+
+![크루스칼8](https://yunsikus.github.io/assets/img/post_img/크루스칼8.jpg)
+
+여섯번 쨰 간선입니다. 이때는 1과 4가 이미 연결이 되어있으므로 (사이블 테이블의 값이 동일하므로) 무시하고 넘어갑니다.
+
+
+![크루스칼9](https://yunsikus.github.io/assets/img/post_img/크루스칼9.jpg)
+
+일곱 번쨰 간선입니다. 
+
+![크루스칼10](https://yunsikus.github.io/assets/img/post_img/크루스칼10.jpg)
+
+사이클 테이블의 모든 값이 1이 되면서 최소 비용 신장 트리가 만들어진 것을 알 수 있습니다. 나머지 남은 간선 4개는 모두 스킵 처리되면서 결과적으로 다음과 같이 완성됩니다. 
+
+![크루스칼11](https://yunsikus.github.io/assets/img/post_img/크루스칼11.jpg)
+
+## 파이썬 코드
+
+```python
+def kruskal(n, costs):
+    # n : 노드의 개수
+    # costs : 간선 및 비용 ex) [[0,1,1],[0,2,2],[1,2,5],[1,3,1],[2,3,8]]
+
+    def find(u): ## u 정점의 루트 노드 탐색
+        if u != p[u]: ## u가 루트 노드가 아니면
+            p[u] = find(p[u]) # 3 -> 2, 2 -> 1 일 경우 3 -> 1 로 경로 압축
+        return p[u] ## u가 루트 노트이면 u 반환
+
+    def union(u, v):
+        root1 = find(u) # B'
+        root2 = find(v)  # A'
+        p[root2] = root1 # A'의 부모느드를 B'로 변경
+        
+    costs.sort(key = lambda x: x[2])
+    p = [0] # 상호배타적 집합
+    tree_edges = 0 # 간선개수
+    mst_cost = 0  # 가중치 합
+
+    for i in range(1, n+1):
+        p.append(i)
+        
+    while True:
+        if tree_edges == n-1:
+            break
+        u, v, wt= costs.pop(0)
+        if find(u) != find(v): # 두 노드의 루트 노드가 다르다면 두 노드가 포함되어 있는 집합을 하나로 결합
+            union(u,v)
+            mst_cost += wt
+            tree_edges += 1
+    return mst_cost
+
+```
+
+
+
+
+

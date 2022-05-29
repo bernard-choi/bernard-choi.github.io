@@ -1,0 +1,16 @@
+---  
+layout: post
+title: "README 파일 작성하기"
+subtitle: "README 파일 작성하기"  
+categories: Development
+tags: Git
+comments: true  
+---  
+
+Udacity - 'Writing READMEs'강의 요약
+
+
+## Documentation이 중요한 이유
+
+
+## README 파일 작성하는 법

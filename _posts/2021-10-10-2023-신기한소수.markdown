@@ -1,0 +1,60 @@
+---
+layout: post
+title: "[Python] 2023 신기한 소수"
+subtitle: "[Python] 2023 신기한 소수"
+categories: Algorithm
+tags: 문제풀이 백트래킹
+comments: true
+
+
+---
+## [2023 신기한소수](https://www.acmicpc.net/problem/2023)
+
+## 문제
+수빈이가 세상에서 가장 좋아하는 것은 소수이고, 취미는 소수를 가지고 노는 것이다. 요즘 수빈이가 가장 관심있어 하는 소수는 7331이다.
+
+7331은 소수인데, 신기하게도 733도 소수이고, 73도 소수이고, 7도 소수이다. 즉, 왼쪽부터 1자리, 2자리, 3자리, 4자리 수 모두 소수이다! 수빈이는 이런 숫자를 신기한 소수라고 이름 붙였다.
+
+수빈이는 N자리의 숫자 중에서 어떤 수들이 신기한 소수인지 궁금해졌다. N이 주어졌을 때, 수빈이를 위해 N자리 신기한 소수를 모두 찾아보자.
+
+
+## 입력
+
+첫째 줄에 N(1 ≤ N ≤ 8)이 주어진다.
+
+## 출력
+
+N자리 수 중에서 신기한 소수를 오름차순으로 정렬해서 한 줄에 하나씩 출력한다.
+
+## 풀이
+
+- 소수를 판별하는 알고리즘을 구현. 제곱근까지만 보고 소수를 판별하도록 한다. 
+- dfs에서 한 단계 들어갈 때마다(`n`이 1증가), 0~9를 붙여보고 소수인 경우만 넘어간다. 
+- `n`이 input `N`과 같아질때 최종 `num`을  return한다. 
+
+
+```python
+import math
+
+N = int(input())
+
+# 제곱근까지만 보고 소수를 판별하는 함수
+def is_prime_number(x):
+    if x == 1 or x == 0:
+        return False
+    for i in range(2, int(math.sqrt(x))+1):
+        if x % i == 0:
+            return False
+    return True
+
+def dfs(n, num):
+    if n == N:
+        print(num)
+        return
+    for i in range(10):
+        if is_prime_number(num*10+i): # 가능한 경우만 탐색
+            dfs(n+1, num*10+i)
+
+for num in [2,3,5,7]:
+    dfs(1,num)  
+```

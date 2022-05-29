@@ -1,0 +1,158 @@
+---
+layout: post
+title: "[Python] 거리두기 확인하기"
+subtitle: "[Python] 거리두기 확인하기"
+categories: Algorithm
+tags: 문제풀이 Stack DFS
+comments: true
+
+
+---
+## [프로그래머스](https://programmers.co.kr/learn/courses/30/lessons/81302)
+
+## 문제
+개발자를 희망하는 죠르디가 카카오에 면접을 보러 왔습니다.
+
+코로나 바이러스 감염 예방을 위해 응시자들은 거리를 둬서 대기를 해야하는데 개발 직군 면접인 만큼
+아래와 같은 규칙으로 대기실에 거리를 두고 앉도록 안내하고 있습니다.
+
+대기실은 5개이며, 각 대기실은 5x5 크기입니다.
+거리두기를 위하여 응시자들 끼리는 맨해튼 거리1가 2 이하로 앉지 말아 주세요.
+단 응시자가 앉아있는 자리 사이가 파티션으로 막혀 있을 경우에는 허용합니다.
+예를 들어,
+
+![거리두기확인하기1](https://yunsikus.github.io/assets/img/post_img/거리두기확인하기1.jpg)
+
+5개의 대기실을 본 죠르디는 각 대기실에서 응시자들이 거리두기를 잘 기키고 있는지 알고 싶어졌습니다. 자리에 앉아있는 응시자들의 정보와 대기실 구조를 대기실별로 담은 2차원 문자열 배열 `places`가 매개변수로 주어집니다. 각 대기실별로 거리두기를 지키고 있으면 1을, 한 명이라도 지키지 않고 있으면 0을 배열에 담아 return 하도록 solution 함수를 완성해 주세요.
+
+## 제한사항
+- places의 행 길이(대기실 개수) = 5
+    - places의 각 행은 하나의 대기실 구조를 나타냅니다.
+- places의 열 길이(대기실 세로 길이) = 5
+- places의 원소는 P,O,X로 이루어진 문자열입니다.
+    - places 원소의 길이(대기실 가로 길이) = 5
+    - P는 응시자가 앉아있는 자리를 의미합니다.
+    - O는 빈 테이블을 의미합니다.
+    - X는 파티션을 의미합니다.
+- 입력으로 주어지는 5개 대기실의 크기는 모두 5x5 입니다.
+- return 값 형식
+    - 1차원 정수 배열에 5개의 원소를 담아서 return 합니다.
+    - places에 담겨 있는 5개 대기실의 순서대로, 거리두기 준수 여부를 차례대로 배열에 담습니다.
+    - 각 대기실 별로 모든 응시자가 거리두기를 지키고 있으면 1을, 한 명이라도 지키지 않고 있으면 0을 담습니다.
+
+
+## 입출력 예
+![거리두기확인하기2](https://yunsikus.github.io/assets/img/post_img/거리두기확인하기2.jpg)
+
+
+## 풀이
+
+DFS 문제입니다. 크게 재귀와 Stack으로 풀 수 있습니다. 
+먼저 재귀를 통해 풀어보겠습니다. 
+
+#### 재귀
+
+- 각 대기실에 대하여 출발점을 찾는다. 
+- 출발점에서 거리두기를 잘 지켰는지 변수 `Flag`를 `True`로 초기화. 
+-  출발점에서 재귀 함수인 `check`를 실행. 
+  - `check`함수는 `x좌표`, `y좌표` 그리고 이동 횟수인 `turn`을 받는다. 
+  - return 조건 (1)은 `turn`이 2일때
+  - return 조건 (2)는 현재 좌표가 'P'이고 `turn`이 0이 아닐때 입니다. 이떄 flag를 `False`로 바꿔준다.
+  - 현재 좌표는 이미 이동한 좌표이므로 `visited` 처리. ('X'로 변경.) 
+  - 상하좌우 4방향으로 각각 이동해주며, 이동한 좌표가 대기실 안이며 'X'좌표가 아니면 다시 `check`함수를 실행
+
+- `Flag`가 `True`이면 모든 'P'에 대하여 거리두기가 잘 지켜졌다는 뜻으로 1 `False`면 0이다. 
+  
+- `Flag`의 경우 `solution` 함수 안에 있는 `Flag`를 check함수에서 사용하기 위해서는 `nonlocal`로 가져와야합니다. 
+
+- `nonlocal`로 가져올 경우 바깥 함수 안에서만 호출 가능합니다. 이 경우 `check` 함수가 solution내에 들어있어야 `nonlocal`로 `Flag`를 불러올 수 있습니다. 
+
+```python
+def solution(places):
+    answer = []
+    def check(matrix, x, y, turn):
+        nonlocal flag
+        if  matrix[x][y] == 'P' and turn != 0:
+            flag = False
+            return
+
+        if turn == 2:
+            return 
+        
+        matrix[x][y] = 'X'
+        
+        dx = [-1,1,0,0]
+        dy = [0,0,1,-1]
+        for k in range(4):
+            nx = x + dx[k]
+            ny = y + dy[k]
+            if nx >=0 and nx<5 and ny >= 0 and ny <5:
+                if matrix[nx][ny] != 'X':
+                    check(matrix, nx, ny, turn+1)
+
+    for place in places:
+        flag = True
+        my_mat = [list(x) for x in place]
+        p_cord = []
+        for i in range(5):
+            for j in range(5):
+                if my_mat[i][j] == 'P':
+                    p_cord.append([i,j])
+
+        for cord in p_cord:
+            check(my_mat, cord[0], cord[1], 0)
+
+        if not flag:
+            answer.append(0)
+        else:
+            answer.append(1)
+
+    return answer
+```
+
+#### 스택
+
+- 각 대기실에 대하여 출발점을 찾는다. 
+- 각 출발점 좌표를 `stack`에 넣고 빈 리스트인 `visited`를 생성
+- `stack`이 빌때까지 반복
+  - `stack`에서 pop한 좌표 x와 y를 `visited`에 넣는다. 
+  - 상하좌우 4가지 방향으로 검사함(`nx`, `ny`)
+  - 이동한 좌표가 대기실 안이고, 'X'좌표가 아니고, 첫 좌표인 `i`,`j`와 맨해턴거리가 2보다 작거나 같은 경우에 
+  - `nx`, `ny` 좌표가 'P'이면 `False`를 return
+- 한번도 `False`에 걸리지 않으면 `True`를 리턴하는 `dfs` 함수를 전체 대기실에 적용
+
+
+```python
+def dfs(my_mat):
+    dx = [-1,1,0,0]
+    dy = [0,0,-1,1]
+    for i in range(5):
+        for j in range(5):
+            if my_mat[i][j] == 'P':
+                stack = [[i,j]]
+                visited = []
+                while stack:
+                    x,y = stack.pop()
+                    visited.append([x,y]) # stack은 모든 구간을 visited로 처리
+                    for k in range(4):
+                        nx = x + dx[k]
+                        ny = y + dy[k]
+                        if (0<=nx<5) and (0<=ny<5) and my_mat[nx][ny] != 'X' and abs(i-nx) + abs(j-ny) <= 2:
+                            if [nx,ny] not in visited:
+                                if my_mat[nx][ny] == 'P':
+                                    return False
+                                else:
+                                    stack.append([nx, ny])
+
+    return True
+
+def solution(places): 
+    answer = []
+    for place in places:
+        my_mat = [list(x) for x in place]
+        if dfs(my_mat):
+            answer.append(1)
+        else:
+            answer.append(0) 
+    return answer
+```

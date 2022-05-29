@@ -1,0 +1,106 @@
+---
+layout: post
+title: "[Python] 키패드누르기"
+subtitle: "[Python] 키패드누르기"
+categories: Algorithm
+tags: 문제풀이 Simulation
+comments: true
+
+
+---
+## [프로그래머스](https://programmers.co.kr/learn/courses/30/lessons/67256)
+
+## 문제
+스마트폰 전화 키패드의 각 칸에 다음과 같이 숫자들이 적혀 있습니다.
+
+![키패드누르기1](https://yunsikus.github.io/assets/img/post_img/키패드누르기1.jpg)
+
+
+이 전화 키패드에서 왼손과 오른손의 엄지손가락만을 이용해서 숫자만을 입력하려고 합니다.
+맨 처음 왼손 엄지손가락은 * 키패드에 오른손 엄지손가락은 # 키패드 위치에서 시작하며, 엄지손가락을 사용하는 규칙은 다음과 같습니다.
+
+1) 엄지손가락은 상하좌우 4가지 방향으로만 이동할 수 있으며 키패드 이동 한 칸은 거리로 1에 해당합니다.
+2) 왼쪽 열의 3개의 숫자 1, 4, 7을 입력할 때는 왼손 엄지손가락을 사용합니다.
+3) 오른쪽 열의 3개의 숫자 3, 6, 9를 입력할 때는 오른손 엄지손가락을 사용합니다.
+4) 가운데 열의 4개의 숫자 2, 5, 8, 0을 입력할 때는 두 엄지손가락의 현재 키패드의 위치에서 더 가까운 엄지손가락을 사용합니다.
+4-1) 만약 두 엄지손가락의 거리가 같다면, 오른손잡이는 오른손 엄지손가락, 왼손잡이는 왼손 엄지손가락을 사용합니다.
+
+순서대로 누를 번호가 담긴 배열 numbers, 왼손잡이인지 오른손잡이인 지를 나타내는 문자열 hand가 매개변수로 주어질 때, 각 번호를 누른 엄지손가락이 왼손인 지 오른손인 지를 나타내는 연속된 문자열 형태로 return 하도록 solution 함수를 완성해주세요.
+
+## 제한사항
+- numbers 배열의 크기는 1 이상 1,000 이하입니다.
+- numbers 배열 원소의 값은 0 이상 9 이하인 정수입니다.
+- hand는 "left" 또는 "right" 입니다.
+  - "left"는 왼손잡이, "right"는 오른손잡이를 의미합니다.
+- 왼손 엄지손가락을 사용한 경우는 L, 오른손 엄지손가락을 사용한 경우는 R을 순서대로 이어붙여 문자열 형태로 return 해주세요.
+
+## 입출력 예
+![키패드누르기2](https://yunsikus.github.io/assets/img/post_img/키패드누르기2.jpg)
+
+## 입출력 예에 대한 설명
+순서대로 눌러야할 번호가 [1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5]이고, 오른손잡이입니다.
+
+![키패드누르기3](https://yunsikus.github.io/assets/img/post_img/키패드누르기3.jpg)
+
+## 풀이
+
+1. 왼쪽 엄지 좌표와 오른쪽 엄지 좌표를 계산합니다. 오른손의 좌표는 `[2,3]`, 왼손의 좌표는 `[0,3]` 입니다.
+
+
+2. 전체 번호의 원소들을 차례로 돕니다. 가장 먼저, 각 번호의 좌표를 계산합니다. 예를 들어, 숫자 2의 경우 x좌표는 `(2-1) % 3 = 1` 이고 y좌표는 `(2-1) // 3 = 0` 즉 `(1,0)`입니다.
+
+3. 번호와 왼손과의 거리, 그리고 번호와 오른손과의 거리를 구합니다.
+
+4. 만약 좌표가 `[1,4,7]` 안에 있으면 왼쪽 엄지 좌표를 갱신 후에 `answer`에 L을 넣어줍니다.
+
+5. 만약 좌표가 `[3,6,9]` 안에 있으면 오른쪽 엄지 좌표를 갱신 후에 `answer`에 R을 넣어줍니다.
+
+6. 만약 좌표가 `[2,5,8,0]` 이라면 3에서 계산했던 왼손과의 거리, 오른손과의 거리를 비교합니다. 같다면 hand를, 왼손과의 거리가 짧다면 'L'을, 오른손과의 거리가 짧다면 'R'을 `answer`에 넣어줍니다.
+
+
+```python
+def dist(a,b):
+    return abs(a[0]-b[0]) + abs(a[1]-b[1])
+
+def solution(numbers, hand):
+    answer = []
+    curr_left = [0,3]
+    curr_right = [2,3]
+
+    for number in numbers:
+        if number == 0:
+            number = 11
+
+        x_cord = (number-1) % 3
+        y_cord = (number-1) // 3
+
+        if number in [1,4,7]:
+            # 왼쪽 엄지 좌표를 갱신
+            curr_left = [x_cord, y_cord]
+            answer += 'L'
+
+        elif number in [3,6,9]:
+            # 오른쪽 엄지 좌표를 갱신
+            curr_right = [x_cord, y_cord]
+            answer += 'R'
+
+        else:
+            distance_l = dist(curr_left, [x_cord, y_cord])
+            distance_r = dist(curr_right, [x_cord, y_cord])
+
+            if distance_l == distance_r:
+                if hand == 'right':
+                    answer += 'R'
+                    curr_right = [x_cord, y_cord]
+                else:
+                    answer += 'L'
+                    curr_left = [x_cord, y_cord]
+            else:
+                if distance_l < distance_r:
+                    answer += 'L'
+                    curr_left = [x_cord, y_cord]
+                else:
+                    answer += 'R'
+                    curr_right = [x_cord, y_cord]
+    return ''.join(answer)
+```

@@ -1,0 +1,58 @@
+---
+layout: post
+title: "[Python] Leetcode 42. 빗물 트래핑"
+subtitle: "[Python] Leetcode 42. 빗물 트래핑"
+categories: Algorithm
+tags: 문제풀이 자료구조 TwoPointer Array
+comments: true
+
+
+---
+## [Leetcode 42 Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
+
+## 문제
+
+높이를 입력받아 비 온 후 얼마나 많은 물이 쌓일 수 있는지 계산하라. 
+
+![Trapping_Rain_Water1](https://yunsikus.github.io/assets/img/post_img/Trapping_Rain_Water1.jpg)
+
+**입력**
+```python
+height = [0,1,0,2,1,0,1,3,2,1,2,1]
+```
+
+**출력**
+```python
+6
+```
+
+## 풀이
+
+1. 투포인터로 최대로 이동
+
+- 오른쪽 최대값이 크면 왼쪽값을 이동, 왼쪽 최대값이 크며 오른쪽값을 이동
+- 결과적으로 최대값에서 만난다.
+- 시간복잡도 : O(N)
+   
+```python
+def trap(self, height: List[int]) -> int:
+    if not height:
+        return 0
+
+    volume = 0
+    left, right = 0, len(heights) - 1
+    left_max, right_max = heights[left], heights[right] # 3, 2
+
+    while left < right:
+        # 왼쪽, 오른쪽 최대값 갱신
+        left_max, right_max = max(heights[left], left_max), max(heights[right], right_max)
+        # 더 높은 쪽을 향해 투 포인터 이동
+        if left_max <= right_max:
+            volume += left_max - heights[left]
+            left += 1
+        else:
+            volume += righ_max - heights[right]
+            right -= 1
+    return volume
+```
+

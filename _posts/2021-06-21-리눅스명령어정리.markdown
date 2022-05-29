@@ -1,0 +1,41 @@
+---  
+layout: post
+title: "[Linux] 자주 사용하는 리눅스 명령어 정리"
+subtitle: "[Linux] 자주 사용하는 리눅스 명령어 정리"  
+categories: Development AWS
+tags: AWS Linux
+comments: true  
+---  
+
+## 자주 사용하는 리눅스 명령어 정리
+
+- 용량체크
+
+```shell
+# 시스템에 마운트된 디스크의 사용 정보
+df
+
+# 해당 경로에 있는 모든 파일의 용량 상위 10개
+du -h|sort -h|tail -10
+```
+
+- 파일 삭제
+
+```shell
+# 파일 삭제
+rm test
+
+# 'dat'으로 끝나는 파일을 모두 삭제한다.
+rm *.dat
+
+# 디렉토리를 삭제
+rm -r test/
+
+# 모든 파일을 삭제
+rm *
+```
+
+## 
+
+man - 명령어 메뉴얼 ex) man ls
+

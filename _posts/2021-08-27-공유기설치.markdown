@@ -1,0 +1,79 @@
+---  
+layout: post  
+title: "[Python]2110 공유기설치"  
+subtitle: "[Python]2110 공유기설치"  
+categories: Algorithm
+tags: 문제풀이 이분탐색 이진탐색 binary-search
+comments: true  
+---  
+
+## [2110 공유기설치](https://www.acmicpc.net/problem/2110)
+
+## 문제 설명
+
+도현이의 집 N개가 수직선 위에 있다. 각각의 집의 좌표는 x1, ..., xN이고, 집 여러개가 같은 좌표를 가지는 일은 없다.
+
+도현이는 언제 어디서나 와이파이를 즐기기 위해서 집에 공유기 C개를 설치하려고 한다. 최대한 많은 곳에서 와이파이를 사용하려고 하기 때문에, 한 집에는 공유기를 하나만 설치할 수 있고, 가장 인접한 두 공유기 사이의 거리를 가능한 크게 하여 설치하려고 한다.
+
+C개의 공유기를 N개의 집에 적당히 설치해서, 가장 인접한 두 공유기 사이의 거리를 최대로 하는 프로그램을 작성하시오.
+
+## 입력
+
+첫째 줄에 집의 개수 N (2 ≤ N ≤ 200,000)과 공유기의 개수 C (2 ≤ C ≤ N)이 하나 이상의 빈 칸을 사이에 두고 주어진다. 둘째 줄부터 N개의 줄에는 집의 좌표를 나타내는 xi (0 ≤ xi ≤ 1,000,000,000)가 한 줄에 하나씩 주어진다.
+
+## 출력
+
+첫째 줄에 가장 인접한 두 공유기 사이의 최대 거리를 출력한다.
+
+## 힌트
+
+공유기를 1, 4, 8 또는 1, 4, 9에 설치하면 가장 인접한 두 공유기 사이의 거리는 3이고, 이 거리보다 크게 공유기를 3개 설치할 수 없다.
+
+## 풀이
+
+공유기 사이의 거리를 이진탐색으로 차례로 좁혀가며, 상한값을 구하면 됩니다. 
+
+문제에서의 핵심은 가장 인접한 두 공유기 사이의 거리를 가능한 크게 설치하는 것이므로 Greedy하게 접근해야 합니다. 골고루 분포시키기 위해서는 첫집부터 균일하게 설치해야 합니다. 즉, 첫집의 좌표부터 임의로 정한 공유기 사이의 거리를 차례로 더해가며 공유기를 설치하면 됩니다. 만약 주어진 개수만큼 공유기를 설치하지 못하면 `False`, 공유기를 설치할 수 있으면 `True`를 반환하는 `is_possible` 함수를 먼저 생성합니다. 
+
+만약 `is_possible` 함수가 True이면, 더 넓게 공유기를 분포시킬수 있으므로 값을 늘립니다(`lower = mid+1`)
+반면 `is_possible` 함수가 False이면, 해당 거리로 공유기를 모두 설치할 수 없으므로 값을 줄입니다. (`upper = mid-1`)
+이를 `lower`가 `upper`보다 커질때까지 반복하면 최종 리턴되는 `lower - 1` 은 우리가 구하고자 하는 상한값이 됩니다. 
+
+
+```python
+def is_possible(home,m,n,l): # home: 정렬된 집의 좌표, m: 최대거리를 m으로 가정, n: 설치해야할 공유기의 개수, l: 집의 개수
+    cur_val = home[0]
+    index = 1
+    ip_count = 1
+    while index <= l-1:
+        if cur_val+m > home[index]:
+            index += 1
+            continue
+        else:
+            cur_val = home[index]
+            ip_count += 1
+            if ip_count == n:
+                return True
+            index += 1
+
+    return False
+
+def solution(home,n,l):
+    lower = 0
+    upper = 1000000000
+    while lower <= upper:
+        mid = (lower + upper) // 2
+        if is_possible(home,mid,n,l): 
+            lower = mid + 1
+        else:
+            upper = mid - 1
+    return lower-1
+
+if __name__ == "__main__":
+    l, n = map(int, input().split())
+    home = []
+    for _ in range(l):
+        home.append(int(input()))
+    home.sort()
+    print(solution(home,n,l))
+```

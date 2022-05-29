@@ -1,0 +1,73 @@
+---  
+layout: post  
+title: "[Python] 입국심사"  
+subtitle: "[Python] 입국심사"  
+categories: Algorithm
+tags: 문제풀이 이분탐색 이진탐색 binary-search
+comments: true  
+---  
+
+## [프로그래머스 입국심사](https://programmers.co.kr/learn/courses/30/lessons/43238)
+
+## 문제 설명
+
+n명이 입국심사를 위해 줄을 서서 기다리고 있습니다. 각 입국심사대에 있는 심사관마다 심사하는데 걸리는 시간은 다릅니다.
+
+처음에 모든 심사대는 비어있습니다. 한 심사대에서는 동시에 한 명만 심사를 할 수 있습니다. 가장 앞에 서 있는 사람은 비어 있는 심사대로 가서 심사를 받을 수 있습니다. 하지만 더 빨리 끝나는 심사대가 있으면 기다렸다가 그곳으로 가서 심사를 받을 수도 있습니다.
+
+모든 사람이 심사를 받는데 걸리는 시간을 최소로 하고 싶습니다.
+
+입국심사를 기다리는 사람 수 n, 각 심사관이 한 명을 심사하는데 걸리는 시간이 담긴 배열 times가 매개변수로 주어질 때, 모든 사람이 심사를 받는데 걸리는 시간의 최솟값을 return 하도록 solution 함수를 작성해주세요.
+
+## 제한사항
+
+- 입국심사를 기다리는 사람은 1명 이상 1,000,000,000명 이하입니다.
+- 각 심사관이 한 명을 심사하는데 걸리는 시간은 1분 이상 1,000,000,000분 이하입니다.
+- 심사관은 1명 이상 100,000명 이하입니다.
+
+## 입출력 예
+
+![입국심사1](https://yunsikus.github.io/assets/img/post_img/입국심사1.jpg)
+
+## 입출력 예 설명
+
+가장 첫 두 사람은 바로 심사를 받으러 갑니다.
+
+7분이 되었을 때, 첫 번째 심사대가 비고 3번째 사람이 심사를 받습니다.
+
+10분이 되었을 때, 두 번째 심사대가 비고 4번째 사람이 심사를 받습니다.
+
+14분이 되었을 때, 첫 번째 심사대가 비고 5번째 사람이 심사를 받습니다.
+
+20분이 되었을 때, 두 번째 심사대가 비지만 6번째 사람이 그곳에서 심사를 받지 않고 1분을 더 기다린 후에 첫 번째 심사대에서 심사를 받으면 28분에 모든 사람의 심사가 끝납니다.
+
+## 풀이
+
+최소, 최대 범위를 구한 뒤 구하려는 답을 이분 탐색으로 범위를 좁혀가며 답을 구할 수 있습니다. 
+범위는 심사를 하는데 총 걸리는 시간으로 `0`부터 `가장 긴 심사시간 * n`까지입니다. 
+lower = 0, upper = times[-1]으로 초기화한후 mid값을 is_possible함수로 넘깁니다. 
+`is_possible` 함수는 심사를 하는데 걸리는 시간이 n명보다 많은 사람을 통과시킬 수 있는지 검사합니다. 
+만약 `is_possible` 함수가 True이면, 시간이 충분한 것으로 주어진 시간을 줄입니다(`upper = mid-1`)
+반면 `is_possible` 함수가 False이면, 시간이 부족한 것으로 시간을 늘입니다. (`lower = mid+1`)
+이를 `lower`가 `upper`보다 커질때까지 반복하면 최종 리턴되는 `upper + 1` 은 우리가 구하고자 하는 하한값이 됩니다. 
+
+```python
+def is_possible(n, times, hubo):
+    total = 0
+    for time in times:
+        total += (hubo // time)
+    if total >= n:
+        return True
+    else: 
+        return False
+
+def solution(n, times):
+    lower, upper, mid = 0, times[-1]*n, 0
+    while lower <= upper:
+        mid = (lower+upper) //2
+        if is_possible(n, times, mid):
+            upper = mid - 1
+        else:
+            lower = mid + 1
+    return upper + 1
+```

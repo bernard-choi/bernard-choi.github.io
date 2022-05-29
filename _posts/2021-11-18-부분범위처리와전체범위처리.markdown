@@ -1,0 +1,23 @@
+---  
+layout: post
+title: "[DB] Random access란?"
+subtitle: "[DB] Random access란?"  
+categories: CS
+tags: DataBase InnoDB MySQL
+comments: true  
+---  
+
+## 랜덤 액세스 
+랜덤 액세스는 데이터를 저장하는 블록을 한 번에 여러개 액세스 하는 것이 아니라 한 번에 하나의 블록만을 액세스하는 싱글 블록 I/O 방식이다.
+반대로 테이블 풀 스캔의 경우에는 한 번에 여러 개의 블록을 액세스하는 멀티 블록 I/O 방식을 사용한다. 
+
+## 랜점 액세스는 언제 발생될까? 
+인덱스 스캔 시 인덱스의 리프 블록에는 해당 테이블의 행을 가리키는 ROW ID가 존재한다. 
+
+![Randomaccess1](https://yunsikus.github.io/assets/img/post_img/Randomaccess1.jpg)
+
+위에 보이는 그림의 최하단 영역인 리프 블록에는 해당 테이블의 행을 가리키는 `ROWID`가 보일것이다. 
+인덱스 스캔이 완료되면 해당 데이터를 찾아가는 유일한 주소 값인 `ROWID`를 확인하여 테이블에 엑세스하게 된다. 이러한 일련의 과정들을 랜덤 액세스 또는 테이블 랜덤 액세스라고 한다. 
+
+## 랜점 액세스이 부하
+인덱스 rowid에 의한 테이블 액세스가 실제로 얼마나 고비용의 작업인지 그림과 함께 살펴보겠습니다. 

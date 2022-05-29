@@ -1,0 +1,53 @@
+---  
+layout: post  
+title: "[Python] 가장 큰 수"  
+subtitle: "[Python] 가장 큰 수"  
+categories: Algorithm
+tags: 문제풀이 정렬
+comments: true  
+---  
+
+## [프로그래머스 가장큰수](https://programmers.co.kr/learn/courses/30/lessons/42746)
+
+## 문제
+
+0 또는 양의 정수가 주어졌을 때, 정수를 이어 붙여 만들 수 있는 가장 큰 수를 알아내 주세요.
+
+예를 들어, 주어진 정수가 [6, 10, 2]라면 [6102, 6210, 1062, 1026, 2610, 2106]를 만들 수 있고, 이중 가장 큰 수는 6210입니다.
+
+0 또는 양의 정수가 담긴 배열 numbers가 매개변수로 주어질 때, 순서를 재배치하여 만들 수 있는 가장 큰 수를 문자열로 바꾸어 return 하도록 solution 함수를 작성해주세요
+
+## 제한사항
+
+- numbers의 길이는 1 이상 100,000 이하입니다.
+- numbers의 원소는 0 이상 1,000 이하입니다.
+- 정답이 너무 클 수 있으니 문자열로 바꾸어 return 합니다.
+
+## 입출력 예
+
+![가장큰수](https://yunsikus.github.io/assets/img/post_img/가장큰수.jpg)
+
+## 입출력 예 설명
+
+문제에 나온 예와 같습니다.
+
+## 풀이
+
+- `numbers`의 원소는 0이상 1000이하로 최소 한자리수임
+- 각 원소를 4번 반복하여 4번째 자리까지를 기준으로 정렬
+  - ex) [9, 10, 11, 99] 이면 [9999, 1010, 1111, 9999]로 만들고 정렬
+- 이때, python의 sort함수에서 key를 설정하여 간단하게 풀 수 있습니다.
+- `numbers`에 원소가 [0,0,0]이라면 이어붙일 경우 '000'이 아닌 0이다. 
+- 따라서 `numbers`의 첫번째 원소가 0이라면, `answer`로 0을 반환한다. 
+
+
+```python
+def solution(numbers):
+    numbers = [str(x) for x in numbers]
+    numbers.sort(key = lambda x : (x*4)[:4], reverse=True)
+    if numbers[0] == '0':
+        answer = '0'
+    else:
+        answer = ''.join(numbers)
+    return answer
+```

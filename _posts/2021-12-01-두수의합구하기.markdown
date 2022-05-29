@@ -1,0 +1,152 @@
+---
+layout: post
+title: "[Python] Leetcode 1. 두 수의 합 구하기"
+subtitle: "[Python] Leetcode 1. 두 수의 합 구하기"
+categories: Algorithm
+tags: 문제풀이 자료구조 TwoPointer
+comments: true
+
+
+---
+## [Leetcode 1 Two Sum](https://leetcode.com/problems/two-sum/)
+
+## 문제
+
+**입력**
+```python
+nums = [2, 7, 11, 15] target = 9
+```
+
+**출력**
+```python
+[0, 1]
+```
+
+---
+
+## 풀이
+
+#### 1. 브루트 포스
+
+- 시간복잡도 : O(N^2)
+   
+```python
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    for i in range(len(nums)-1):
+        for j in range(i, len(nums)):
+            if nums[i]+nums[j]==target:
+                return [i, j]
+```
+
+#### 2. 첫 번째 수를 뺀 결과 키 조회
+
+- 시간복잡도 : 평균 O(1), 최악 O(N)
+
+```python
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    nums_map = {}
+    # 키와 값을 바꿔서 딕셔너리 저장
+    for i, num in enumerate(nums):
+        nums_map[num] = i
+
+    # 타겟에서 첫 번째 수를 뺀 결과를 키로 조회
+    for i, num in enumerate(nums):
+        if target - num in nums_map and i != nums_map[target - num]:
+            return nums.index(num), nums_map[target - num]
+```
+
+#### 3. 투 포인터 이용
+
+- 시간복잡도 : 정렬 O(NlogN), 포인터 이동 및 계산 O(N)
+- 왼쪽 포인터와 오른쪽 포인터의 합이 타겟보다 크다면 오른쪽 포인터를 왼쪽으로, 작다면 왼쪽 포인터를 오른쪽으로 옮긴다. 정렬이 된 상태를 전제로 함. 
+- 인덱스를 찾아내는 문제라면 인덱스 정보도 미리 저장해야한다.
+
+```python
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    nums.sort()
+    left, right = 0, len(nums)-1
+    while not left == right:
+        if nums[left] + nums[right] > target:
+            right -= 1
+        elif nums[left] + nums[right] < target:
+            left += 1
+        else:
+            return left, right
+
+```
+---
+## 세수의 합 구하기
+- 마찬가지 방법으로 세수의 합 구하기 문제를 풀어보자
+- 세수의 합이 0인 경우를 출력해보자
+
+**입력**
+```python
+nums = [-1, 0, 1, 2, -1, -4] target = 0
+```
+
+**출력**
+```python
+[
+    [-1, 0, 1],
+    [-1, -1, 2]
+]
+```
+---
+
+## 풀이
+
+#### 1. 브루트 포스
+
+- 시간복잡도 : O(N^3)
+   
+```python
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    results = []
+    nums.sort()
+    for i in range(len(nums)-2):
+        # 중복값 건너뛰기
+        if i>0 and nums[i] == nums[i-1]:
+            continue
+        for j in range(i+1, len(nums)-1):
+            if j>i and nums[j] == nums[j-1]:
+                continue
+            for k in range(j+1, len(nums)):
+                if k > j+1 and nums[k] == nums[k-1]:
+                    continue
+                if nums[i]+nums[j]+nums[k]==target:
+                    results.append((nums[i], nums[j], nums[k]))
+    return results
+```
+
+#### 2. 투 포인터 이용
+
+- 시간복잡도 : 정렬 O(NlogN), 포인터 이동 및 계산 O(N), 각 값마다 투 포인터 이동을 적용해야하므로 최종 시간복잡도 O(N^2)
+
+```python
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    results = []
+    nums.sort()
+    for i in range(len(nums)-2):
+        # 중복된 값 건너뛰기
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        # 간격을 좁혀가며 합 sum계산
+        left, right = i + 1, len(nums) - 1
+        while left < right:
+            sum = nums[i] + nums[left] + nums[right]
+            if sum < target:
+                left += 1
+            elif sum > target:
+                right -= 1
+            else:
+                # sum = target인 경우에는 정답 및 스킵처리
+                reuslts.append((nums[i], nums[left], nums[right]))
+                while left < right and nums[left] == nums[left+1]:
+                    left += 1
+                while left < right and nums[right] == nums[right-1]:
+                    right -= 1
+                # 그 다음부터 다시 시작
+                left += 1
+                right -= 1
+    return results
+```

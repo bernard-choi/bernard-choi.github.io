@@ -1,0 +1,52 @@
+---
+layout: post
+title: "[Python] Leetcode 238. 자신을 제외한 배열의 곱"
+subtitle: "[Python] Leetcode 238. 자신을 제외한 배열의 곱"
+categories: Algorithm
+tags: 문제풀이 자료구조 Array
+comments: true
+
+
+---
+## [Leetcode 238 Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
+
+## 문제
+
+배열을 입력받아 output[i]가 자신을 제외한 나머지 모든 요소의 곱셈 결과가 되도록 출력하라
+
+**입력**
+```python
+nums = [1,2,3,4]
+```
+
+**출력**
+```python
+[24,12,8,6]
+```
+
+## 풀이
+
+- 왼쪽부터 차례대로 곱한 값을 out 리스트에 저장
+  - 시간 복잡도 : O(N)
+  - 공간 복잡도 : O(N)
+- 다시 오른쪽부터 역순으로 곱한 값을 앞에서 구한 왼쪽부터 차례대로 곱한 값과 곱한다.
+  - 시간 복잡도 : O(N)
+  - 공간 복잡도 : O(N)
+
+```python
+def productExceptSelf(self, nums: List[int]) -> List[int]:
+    out = []
+    p = 1
+    # 왼쪽 곱셈
+    for i in range(0, len(nums)):
+        out.append(p)
+        p = p * nums[i]
+    # out : [1,1,2,6]
+    # 왼쪽 곱셈 결과에 오른쪽 값을 차례대로 곱셈
+    p = 1
+    for i in range(len(nums)-1,-1,-1): # 3,2,1,0
+        out[i] = out[i]*p
+        p = p*nums[i]
+    return out
+```
+

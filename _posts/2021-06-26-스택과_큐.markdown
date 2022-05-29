@@ -1,0 +1,114 @@
+---  
+layout: post  
+title: "[Algorithm] 스택과 큐"  
+subtitle: "[Algorithm] 스택과 큐"  
+categories: Algorithm
+tags: DataStructure Stack Queue
+comments: true  
+
+
+---  
+## 스택(Stack)이란?
+
+![스택과큐1](https://yunsikus.github.io/assets/img/post_img/스택과큐1.jpg)
+
+스택이란 쌓아 올린다는 것을 의미.
+따라서 스택 자료구조라는 것은 책을 쌓는 것처럼 차곡차곡 쌓아 올린 형태의 자료구조이다.
+
+#### 스택의 특징
+
+- 스택은 위의 사진처럼 같은 구조와 크기의 자료를 정해진 방향으로만 쌓을 수 있고, top으로 정한 곳을 통해서만 접근할 수 있다.
+
+- 가장 위에 있는 자료는 가장 최근에 들어온 자료를 가르키고 있으며 삽입되는 새 자료는 top이 가리키는 자료의 위에 쌓이게 된다.
+
+- 스택에서 자료를 삭제할 때도 top을 통해서만 가능하다.
+
+- 스택에서 top을 통해 삽입하는 연산을 `'push'`, top을 통한 삭제하는 연산을 `'pop'`이라고 한다.
+
+- 가장 마지막에 삽입된 자료가 가장 먼저 삭제되는 스택의 구조를 후입선출(LIFO, Last-In-First-Out)구조라고 한다.
+
+#### 스택의 활용 예시
+
+- 웹 브라우저 방문 기록 : 가장 나중에 열린 페이지부터 다시 보여준다.
+- 역순 문자열 만들기 : 가장 나중에 입력된 문자부터 출력
+- 실행 취소 : 가장 나중에 실행된 것부터 실행을 취소
+- 후위 표기법 계산
+- 수식의 괄호 검사
+
+## 큐(Queue)란?
+
+![스택과큐2](https://yunsikus.github.io/assets/img/post_img/스택과큐2.jpg)
+
+Queue의 사전적 의미는 1. (무엇을 기다리는 사람, 자동차 등의) 줄, 혹은 줄을 서서 기다리는 것을 의미한다. 따라서 일상생활에서 놀이동산에서 줄을 서서 기다리는 것, 은행에서 먼저 온 사람의 업무를 창구에서 처리하는 것과 같이 선입선출(FIFO, First In First Out)방식의 자료구로를 말한다.
+
+#### 큐의 특징
+
+- 정해진 한 곳(top)을 통해서 삽입 삭제가 이루어지는 스택과는 달리, 큐는 한쪽 끝에서 삽입 작업이, 다른 쪽 끝에서 삭제 작업이 양쪽으로 이루어진다.
+
+- 이때 삭제연산만 수행되는 곳을 프론트(front), 삽입연산만 이루어지는 곳을 리어(rear)로 정하여 각각의 연산작업만 수행된다.
+
+- 이때 큐의 삽입연산을 `enQueue`, 프론트에서 이루어지는 삭제 연산을 `deQueue`라고 부른다.
+
+#### 큐의 활용 예시
+큐는 주로 데이터가 입력된 시간 순서대로 처리해야 할 필요가 있는 상황에 이용한다.
+
+- 우선순위가 같은 작업 예약(프린터의 인쇄 대기열)
+- 은행 업무
+- 콜센터 고객 대기시간
+- 프로세스 관리
+- 너비 우선 탐색(BFS)
+- 캐시 구현
+
+## Python에서의 스택과 큐
+Python은 collections모듈의 deque을 통해 큐 자료구조를 제공합니다.
+deque는 스택과 큐를 합친 자료구조라고 생각하면 됩니다. 가장 자리에 원소를 넣거나 뺼 수 있습니다.
+
+
+|메소드|설명|
+|--|--|
+|append(x)|x를 덱의 오른쪽에 삽입|
+|popleft()|x를 덱의 오른쪽에 삽입|
+|cear()|모든 원소를 지운다|
+
+
+스택의 경우 list를 쓰더라고 time complexity에는 문제가 없습니다. list.append와 list.pop() 모두 O(1)이지만 큐의 경우는 다릅니다. 마지막 원소가 아닌 첫번쨰 원소를 삭제하는 list.pop(0)의 경우 O(N)이기 때문입니다.(원소들을 재배열해야만 한다) 따라서 시간복잡도를 고려해 리스트는 큐로 사용하지 않습니다.
+
+#### deque - init
+deque([iterable[,maxlen]])를 이용해 초기화한다.
+```python
+from collections import deque
+
+# 빈 큐 만들기
+deque1 = deque()
+
+# 원소가 있는 큐 만들기
+deque2 = deque([1, 2, 3])
+```
+
+#### deque - append(x)
+큐에 원소를 넣을 때 사용합니다.
+
+
+```python
+my_deque = deque()
+my_deque.append(3)
+
+print(my_deque) # deque([3])
+```
+#### deque - popleft()
+큐에서 원소를 제거할 때 사용합니다.
+
+```python
+my_deque = deque([1,2,3])
+
+while my_deque:
+  print("{}을/를 pop했습니다".format(my_deque.popleft()))
+
+# 1을/를 pop했습니다.
+# 2을/를 pop했습니다.
+# 3을/를 pop했습니다.
+```
+
+## 관련 문제
+
+- [프로그래머스 기능개발](https://yunsikus.github.io/algorithm/2021/06/26/%EA%B8%B0%EB%8A%A5%EA%B0%9C%EB%B0%9C/)

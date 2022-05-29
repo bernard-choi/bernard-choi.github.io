@@ -1,0 +1,321 @@
+---
+layout: post
+title: "Python 코딩테스트  저장소"
+subtitle: "파이썬 코테 저장소"
+categories: Algorithm
+tags: Python Algorithm tips
+comments: true
+
+
+---
+## 파이썬 코딩테스트 팁 모음
+
+----
+
+## 1. 디버깅
+
+1. **입력 개수가 주어지지 않을때**- try except 처리로 해결
+
+```Python
+while True:
+    try:
+        n = int(input())
+        print(d[n])
+    except:
+        break
+```
+
+2. **출력형식이 잘못되었습니다**. - 불필요한 공백 출력시 눈에 띄지는 않지만 에러가 출력됨.
+
+```python
+for i in range(a):
+    for j in range(a):
+        print(matrix[i][j], end = ' ')
+    if i != a-1:
+        print() ## print(' ') 로 해서 "출력형식이 잘못되었슫니다" 계속 뜸
+```
+
+3. **시간초과** - input() 대신 sys.stdin.readline()
+
+----
+
+## 2. Pythonic 문제풀이
+
+1) **Sort 함수** - key, reverse를 활용
+
+```python
+def solution(numbers):
+    numbers = [str(x) for x in numbers]
+    numbers.sort(key = lambda x: (x*4)[:4],reverse=True) ## 리스트 값을 4번 반복한후 4번째 자리까지 가장 큰수를 추출
+    if numbers[0] == '0':
+        answer = 0
+    else:
+        answer =  ''.join(numbers)
+    return answer
+```
+  - 또한, dictionary를 value로 정렬하여 key값을 반환할 수 있다.
+
+```python
+print(rate) # {1: 0.125, 2: 0.42857142857142855, 3: 0.5, 4: 0.5, 5: 0.0}
+print(sorted(rate, key =lambda x: rate[x], reverse=True)) # 딕셔너리를 value로 정렬한 키값
+# [3, 4, 2, 1, 5]
+```
+
+
+2) **Count 함수** - collections의 Count함수를 활용하여 리스트내 원소들의 개수를 편하게 추출
+
+```python
+from collections import Counter
+
+my_list = [1,2,3,4,4,4]
+Counter(my_list)[4] # 원소 4의 개수 3이 출력됨
+```
+
+
+3) **List comprehension** 으로 복잡한 for 을 간략화, 딕셔너리 생성 가능. zip으로 두개 이상의 리스트를 각 원소별로 작업 가능
+
+```python
+specs = [['yunsik','100'],['choi','200']]
+spec_dict =  {key : int(value) for key, value in specs}
+
+list1 = [1,2,3]
+list2 = [4,5,6]
+
+print([x + y for x, y in zip(list1, list2)]) # [5, 7, 9]
+```
+
+
+4) **Nested List** 에서 작업하기
+
+```python
+# unlist in python
+nested_list = [['a','b','c'],['d','e','f','g']]
+unnested_list = [y for x in nested_list for y in x] ## ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+# sum of the list
+nested_int = [[1,2,3],[4,5,6]]
+total_sum = sum(map(sum,nested_int))
+
+# max in list
+nested_list = [(0, 2), (1, 1), (2, 3), (3, 2)]
+
+# 첫번쨰 원소를 기준으로 max값이 담긴 집합을 return함
+max(nested_list) # (3,2)
+
+# key를 지정하여 다른 원소를 기준으로 max값을 뽑을 수 있음
+max(nested_list, key = lambda x:x[1]) # (2,3)
+```
+
+5) **String 출력** - format을 쓰는게 깔끔
+
+```python
+  for i in range(len(matrix)-1):
+    answer = do(matrix[i])
+    print("Case {}: {}".format(i+1,answer)) ## format
+```
+
+6) **순열과 조합시 itertools의 permutations, combinations활용**. DFS, BFS로 처음부터 구현하기 보다는 미리 짜여져 있는 패키지를 활용
+
+```python
+from itertools import permutations, product, combinations_with_replacement
+data = ['A', 'B', 'C']
+result = list(permutations(data,3))
+print(result)
+# [('A', 'B', 'C'),
+#  ('A', 'C', 'B'),
+#  ('B', 'A', 'C'),
+#  ('B', 'C', 'A'),
+#  ('C', 'A', 'B'),
+#  ('C', 'B', 'A')]
+
+result2 = list(product(data,2)) # 2개를 뽑는 모든 순열
+print(result2)
+# [('A', 'A'),
+#  ('A', 'B'),
+#  ('A', 'C'),
+#  ('B', 'A'),
+#  ('B', 'B'),
+#  ('B', 'C'),
+#  ('C', 'A'),
+#  ('C', 'B'),
+#  ('C', 'C')]
+
+result3 = list(combinations_with_replacement(data,2)) # 중복조합
+print(result3)
+# [('A', 'A'), ('A', 'B'), ('A', 'C'), ('B', 'B'), ('B', 'C'), ('C', 'C')]
+```
+
+repeat의 값을 바꿔가며 하나의 리스트에 담을 시
+```python
+alpha_list =[''.join(list(j)) for i in range(1,6) for j in product(['A','E','I','O','U'], repeat=i)]
+```
+7) 순열과 조합 재귀 풀이
+- itertools 모듈을 제한하는 경우도 있으니 재귀풀이도 기억해두자.
+- 순열
+
+```python
+# 순열
+# 서로 다른 정수를 입력받아 가능한 모든 순열을 리턴하라
+arr = [1, 2, 3]
+n = len(arr)
+visited = [False]*n
+answer = []
+
+def permutation(depth, result):
+    if depth == n:
+        # 리프 노드일때 결과 추가
+        answer.append(result)
+        return 
+    for i in range(len(my_list)):
+        if not visited[i]:
+            visited[i] = True
+            permutation(depth+1, result+[my_list[i]])
+            visited[i] = False
+
+permutation(0, []) 
+print(answer) # [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
+```
+
+- 조합
+
+```python
+# 조합
+# 전체 수 n을 입력받아 k개의 조합을 리턴하라
+n = 4
+k = 2
+arr = [x for x in range(1,n+1)]
+visited = [False]*n
+
+answer = []
+visited = [False]*n
+def combination(depth, result, start):
+    if depth == k:
+        answer.append(result)
+        return
+    for i in range(start, len(my_list)+1):
+        if not visited[i]:
+            visited[i] = True
+            combination(depth+1, result+[arr[i]], i)
+            visited[i] = False
+combination(0,[],0)
+print(answer) # [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
+```
+
+8) **enumerate로 인덱스 넣기**
+
+```python
+priorities = [2, 1, 3, 2]
+priorities = [(i,p) for i,p in enumerate(priorities)] # [(0, 2), (1, 1), (2, 3), (3, 2)]
+```
+
+9) **이진탐색 라이브러리 사용하여 특정 범위의 데이터 개수 구하기**
+
+```python
+from bisect import bisect_left, bisect_right
+
+# 값이 [left_value, right_value]인 데이터 개수를 반환하는 함수
+def count_by_range(a, left_value, right_value):
+    right_index = bisect_right(a, right_value)
+    left_index = bisect_left(a, left_value)
+    return right_index - left_index
+
+# 배열 선언
+a = [1, 2, 3, 3, 3, 3, 4, 4, 8, 9]
+
+# 값이 4인 데이터 개수 출력
+print(count_by_range(a, 4, 4))
+
+# 값이 [-1, 3] 범위에 있는 데이터 개수 출력
+print(count_by_range(a,-1,3))
+```
+
+그 외 사용예시들
+
+```python
+# 정확히 값이 x인 데이터의 인덱스 반환
+def index_of_x(a, x):
+    i = bisect_left(a, x)
+    if i != len(a) and a[i] == x:
+        return i
+    return None
+
+# x보다 작은 데이터 중에서, 가장 큰 값의 인덱스를 반환
+def index_of_less_than_x(a, x):
+    i = bisect_left(a, x)
+    # x 보다 작은 데이터가 존재하는 경우
+    if i:
+        return i - 1 # 그 중에서 가장 큰 값의 인덱스 반환
+    # x가 모든 데이터의 값 이하인 경우 None 반환
+    return None
+
+# x보다 작거나 같은 데이터 중에서, 가장 큰 값의 인덱스를 반환
+def index_of_less_or_equal_than_x(a, x):
+    i = bisect_right(a, x)
+    # x보다 작거나 같은 데이터가 존재하는 경우
+    if i:
+        return i - 1 # 그 중에서 가장 큰 값의 인덱스 반환
+    # x가 모든 데이터의 값보다 작은 경우 None 반환
+    return None
+
+# x보다 큰 데이터 중에서, 가장 작은 값의 인덱스를 반환
+def index_of_greater_than_x(a, x):
+    i = bisect_right(a, x):
+    # x 보다 큰 데이터가 존재하는 경우
+    if i != len(a):
+        return i # 그 중에서 가장 작은 값의 인덱스 반환
+    # x가 모든 데이터의 값 이상인 경우 None 반환
+    return None
+
+# x보다 크거나 같은 데이터 중에서, 가장 작은 값의 인덱스를 반환
+def index_of_greater_equal_than_x(a, x):
+    i = bisect_left(a, x)
+    # x보다 크거나 같은 데이터가 존재하는 경우
+    if i != len(a):
+        return i # 그 중에서 가장 작은 값의 인덱스 반환
+    # x가 모든 데이터의 값보다 큰 경우 None 반환
+    return None
+```
+----
+
+## 3. 그 외
+
+2. **2차원 리스트 90도 회전**
+
+ex ) [프로그래머스_자물쇠와 열쇠](https://programmers.co.kr/learn/courses/10336/lessons/64196)
+
+```python
+def rotate_a_matrix_by_90_degree(a):
+  n = len(a) # 행 길이 계산
+  m = len(a[0]) # 열 길이 계산
+
+  result = [[0] * n for _ in range(m)] ## 결과 리스트
+  for i in range(n):
+    for j in range(m):
+      result[j][n-i-1] = a[i][j]
+
+  return result
+```
+
+## 4. 자료구조 및 알고리즘별 풀기 좋은 문제들
+
+- 스택과 큐
+
+- 셋
+  - [프로그래머스_후보키](https://programmers.co.kr/learn/courses/30/lessons/42890)
+
+- 해시
+  - [프로그래머스_오픈채팅방](https://programmers.co.kr/learn/courses/30/lessons/42888)
+
+- 이분탐색
+  - [프로그래머스스쿨_가로등](https://yunsikus.github.io/algorithm/2021/03/13/%EA%B0%80%EB%A1%9C%EB%93%B1/)
+
+- 힙
+  - [프로그래머스_더맵게](https://programmers.co.kr/learn/courses/30/lessons/42626)
+
+- DP
+
+- DFS
+
+- BFS
+  - [프로그래머스_단어변환](https://programmers.co.kr/learn/courses/30/lessons/43163)
+  - [프로그래머스_블록이동하기](https://programmers.co.kr/learn/courses/30/lessons/60063)

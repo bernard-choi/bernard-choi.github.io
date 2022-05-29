@@ -1,0 +1,75 @@
+---  
+layout: post
+title: "[AWS] pem없이 aws접속"
+subtitle: "[AWS] pem없이 aws접속" 
+categories: Development
+tags: AWS
+comments: true  
+--- 
+## PEM 없이 EC2 접속
+
+#### 1) pem 파일 권한 변경
+- sudo chmod 600 MyKeyPair.pem
+
+#### 2 pem 파일 위피에서 ec2에 접속
+- $ ssh -i ~.pem ubuntu@ec2주소
+
+#### 3) 새로운 유저 생성
+- $ sudo useradd -s /bin/bash -m -d /home/USERNAME -g root USERNAME
+
+#### 4) 유저 비밀번호 설정
+- $ sudo passwd USERNAME
+
+#### 5) sudoers 파일 권한 변경
+- $ sudo chmod u+w /etc/sudoers
+
+#### 6) sudoers 파일 열고, username 추가
+
+- $ sudo vi /etc/sudoers 
+```
+USERNAME ALL=(ALL:ALL) ALL
+```
+
+#### 7) sshd_config 파일에 PasswordAuthentication 설정 변경
+
+- $ sudo vi /etc/ssh/sshd_config
+```
+PasswordAuthentication yes
+```
+
+#### 8) ssh를 재시작
+- $ sudo service ssh restart
+
+## 스토리지 추가
+
+
+## Python3.6 버전 설치
+
+
+
+## 비밀번호 없이 원격서버 연동
+
+#### 1. 로컬에서 ssh-key발급
+- `ssh-keygen -t rsa -b 4096`
+
+#### 2. 발급된 ssh-key 파일을 서버에 등록서
+- .ssh폴더 안의 autohorized_keys 파일에 발급된 키를 복사하여 넣는다. 
+
+#### 3. Config 파일에서 키파일을 인식하도록 설정
+- Remote SSH: Connect to Host 클릭 후 Configure SSH Hosts를 실행
+- Config 파일을 열고 서버정보를 입력
+
+```
+Host Batch
+	HostName ~
+	User Ubuntu
+
+```
+
+## Reference
+
+[https://ithub.tistory.com/215](https://ithub.tistory.com/215)
+
+[https://doheejin.github.io/vscode/2021/02/25/vscode-server.html](https://doheejin.github.io/vscode/2021/02/25/vscode-server.html)
+
+

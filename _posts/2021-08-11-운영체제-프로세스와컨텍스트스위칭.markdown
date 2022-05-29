@@ -1,0 +1,76 @@
+---
+layout: post
+title: "[운영체제] 프로세스 구조, 컨텍스트 스위칭"
+subtitle: "[운영체제] 프로세스 구조, 컨텍스트 스위칭"
+categories: CS
+tags: OS  
+comments: true
+
+
+---
+
+## 프로세스 구조
+`stack` : 임시 데이터(함수 호출, 로컬 변수 등)
+`heap` : 코드에서 동적으로 만들어지는 데이터
+`data` : 변수/초기화된 데이터
+`text(code)` : 컴파일된 코드가 들어가는 
+
+ ![컨텍스트스위칭1](https://yunsikus.github.io/assets/img/post_img/컨텍스트스위칭1.jpg)
+
+#### HEAP
+
+- Heap은 코드에서 동적으로 만들어지는 메모리. C 언어에서는 malloc이라는 메서드가 있다. 이 메서드로 명시한 메모리 공간만큼 동적으로 메모리 생성이 가능. 이때 Heap이라는 메모리 공간에 해당 크기만큼 할당됨. 
+
+![컨텍스트스위칭2](https://yunsikus.github.io/assets/img/post_img/컨텍스트스위칭2.jpg)
+
+#### DATA
+
+- BSS : 초기화 되지 않은 전역변수
+- DATA : 초기 값이 있는 전역변수
+
+![컨텍스트스위칭3](https://yunsikus.github.io/assets/img/post_img/컨텍스트스위칭3.jpg)
+
+
+#### STACK
+
+- return address가 제일 먼저 stack에 쌓인다. 
+- 이후 차례대로 임시 데이터가 쌓인다(함수 호출, 로컬 변수)
+- stack에서 로컬 변수들이 차례로 계산되어 빠져 나간 이후 마지막 값을 return하면 빈 스택이 남음
+
+
+## 컨택스트 스위칭
+
+- 컨텍스트 스위칭이란 CPU에 실행할 프로세스를 교체하는 기술
+- 컴퓨터 구조에서 주요 register 중에 PC와 SP가 있다. 이 주요 register들이 프로세스 구조(TEXT, STACK,HEAP,DATA)와 연관되어서 동작이 되는지 살펴보도록 하자. 
+
+#### 컨텍스트 스위칭과 PCB
+
+- Process A와 Process B가 컨텍스트 스위칭 되면서 실행된다고 할 때 A가 실행되다가(PC, SP가 A의 주소를 가리킴) B로 컨텍스트 스위칭이 일어나려고 하면 PCB라는 곳에 A의 PC, SP를 저장해둔다. 
+
+- PCB(Process Control Block, Process Context Block)이란?
+    - 여러 process의 주요 상태(process ID, Register값(PC, SP), Scheduling Info, Memory Info 등)가 있는데, PCB는 프로세스가 실행중인 상태를 캡쳐 / 구조화해서 저장. 이것이 컨텍스트 스위칭의 핵심 
+    - 즉 PCB가 process의 상태 정보를 관리하고, 이를 컨텍스트 스위칭, 스케줄링 등에 사용하는 것
+
+- 컨텍스트 스위칭이 일어나는 순서는 아래와 같다. 
+    - 1) 실행중지할 프로세스 정보를 해당 프로세스의 PCB에 업데이트해서, 메인 메모리에 저장
+    - 2) 다음 실행할 프로세스 정보를 메인 메모리에 있는 해당 PCB정보를 넣고 CPU에 넣고 실행
+  
+
+<details>
+<summary>컨텍스트 스위칭이란?</summary>
+<div markdown="1">       
+
+멀티 프로세스 환경에서 CPU가 어떤 하나의 프로세스를 실행하고 있는 상태에서 인터럽트 요청에 의해 다음 우선 순위의 프로세스가 실행되어야 할 때 기존의 프로세스의 상태 또는 레지스터 값을 저장하고 CPU가 다음 프로세스를 수행하도록 개로운 프로세스의 상태 또는 레지스터 랎을 교체하는 작업을 Context Switching이라고 한다. 
+
+</div>
+</details>
+
+
+<details>
+<summary>프로세스 제어 블록이란?</summary>
+<div markdown="1">       
+PCB는 특정 프로세스에 대한 중요한 정보를 저장하고 있는 운영체제의 자료구조. 운영체제는 프로세스를 관리하기 위해 프로세스의 생성과 동시에 고유한 PCB를 생성. 프로세스는 CPU를 할당받아 작업을 처리하다가도 프로세스 전환이 발생하면 진행하던 작업을 저장하고 CPU를 반환해야 하는데, 이때 작업의 진행 상황을 모두 PCB에 저장하게 된다. 그리고 다시 CPU를 할당받게 되면 PCB에 저장되어있던 내용을 불러와 이전에 종료됐던 시점부터 다시 작업을 수행한다.
+PCB에 저장되는 정보는 프로세스 ID, Register 값(PC, SP), 스케줄링 정보, 메모리 관리 정보등이 있다. 
+
+</div>
+</details>

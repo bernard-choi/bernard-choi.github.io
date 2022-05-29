@@ -1,0 +1,8 @@
+---  
+layout: post
+title: "[AWS] EC2에 도커 설치하기"
+subtitle: "[AWS] EC2에 도커 설치하기" 
+categories: Development
+tags: AWS
+comments: true  
+--- 

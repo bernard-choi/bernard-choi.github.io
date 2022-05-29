@@ -1,0 +1,127 @@
+---  
+layout: post
+title: "[Python] 파이썬 상대경로 문제"
+subtitle: "[Python] 파이썬 상대경로 문제" 
+categories: Python
+tags: import
+comments: true  
+--- 
+
+## 서론
+
+복잡한 프로젝트의 경우 파이썬 모듈이 다른 파이썬 모듈안에서 실행되는 경우가 있습니다. 이때 import 상에서 문제가 계속 발생하여 python3 내에서의 상대경로 문제를 정리해보았습니다.
+
+예를 들어, 계산기 실행함수인 runner.py를 실행하는데 사칙연산을 담은 arithmetic 패키지를 안에서 불러오는 경우가 있습니다. 
+
+```
+my_cal
+|---- arithmetic
+|       |---- __init__.py(이 파일이 있어야 파이썬 패키지로 인식함)
+|       |---- plus.py
+|       |---- minus.py
+|       |---- util.py
+|
+|
+|------- runner.py
+```
+
+`runner.py`는 실제 실행 함수이고 `arithmetic` 패키지를 불러옵니다. `runner.py`는 다음과 같이 생겼습니다. 
+
+```python
+# runner.py
+from util import plus
+
+print("3 + 2 is " + str(util.plus(3,2)))
+```
+
+aritnmetic 패키지는 이렇게 생겼습니다. 
+
+```python
+# plus.py
+ import util
+
+ def plus(a, b):
+ 	"""
+ 	>>> sum(3, 2)
+ 	5
+ 	"""
+
+ 	result = a + b
+ 	util.log("suming...")
+ 	return result
+```
+
+```python
+# util.py
+
+def log(message):
+    pass
+```
+
+이때 python3로 실행할 경우 `ModuleNotFoundError : No module named 'util'` 에러가 발생합니다. 
+
+분명 util모듈이 바로 옆에 있지만 인식을 못하고 있습니다. 
+
+그 이유는 PEP8의 내용으로 설명할 수 있습니다. 
+
+```
+Explicit relative imports are an acceptable alternative to absolute imports.
+Implicit relative imports should never be used and have been removed in Python3.
+```
+
+python3 에서는 암묵적인 import가 안됩니다. 
+
+python2는 주어진 import 경로가 상대경로일 것이라고 암묵적으로 해석하고 같은 디렉토리에서 이를 찾습니다. 
+
+반면에 python3는 import 경로가 `.` 으로 시작하지 않았기 때문에 절대경로라고 생각하고 엉뚱한 곳에서 가져온 것입니다.
+
+`plus.py`에서 `util.py`를 import하는 부분을 상대경로로 변경해보겠습니다. 
+
+```python
+# plus.py
+ import util
+
+ def plus(a, b):
+ 	"""
+ 	>>> sum(3, 2)
+ 	5
+ 	"""
+
+ 	result = a + b
+ 	util.log("suming...")
+ 	return result
+```
+
+문제없이 실행이 됩니다. 하지만, 또 다른 문제가 생길 수 있습니다. 
+
+plus.py의 구현을 바꿀일이 생겨 plus.py를 직접 실행시킬 경우 다음과 같은 에러가 발생합니다. (`ImportError: attempted relative import with no known parent package`). 
+
+상대경로를 import를 하려면 해당 python 파일을 모듈로써 import 해야하고 스크립트로 직접 실행할 수는 없습니다. 
+
+정리하면 다음과 같습니다. 
+
+- **상대경로 import를 포함한 python 모듈은 단독 실행이 불가능하다.**
+- **패키지 내에서 절대경로 import는 쉽지 않다.**
+
+## 해결방법
+
+Python에는 `__name__` 이라는 특별한 변수가 있습니다. 이는 최상위 스코프의 이름을 나타내는데, 현재 실행 상태를 판단하는 데에 사용할 수 있습니다. 
+
+|실행방법|명령|\_\_name\_\_|
+|--|--|--|
+직접실행|python3 arithmetic/plus.py|**\_\_main\_\_**|
+패키지 내부에서 import|python3 runner.py|arithmeic.plus.py|
+
+직접 실행하는 경우는 절대경로 import를, 그렇지 않은 경우(=패키지 내부 import)의 경우에는 상대경로 import를 해주면 됩니다. 
+
+```python
+ if __name__ == "__main__":
+ 	import util
+ else:
+ 	from . import util
+```
+
+## Reference
+
+- https://stackoverflow.com/questions/16981921/relative-imports-in-python-3
+- https://blog.potados.com/dev/python3-import/

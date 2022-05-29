@@ -1,0 +1,49 @@
+---
+layout: post
+title: "[Python] Leetcode 20. valid-parentheses"
+subtitle: "[Python] Leetcode 20. valid-parentheses"
+categories: Algorithm
+tags: 문제풀이 자료구조 stack
+comments: true
+
+
+---
+## [Leetcode 39 조합의 합](https://leetcode.com/problems/valid-parentheses/)
+
+## 문제
+
+괄호가 된 입력값이 올바른지 판별하라
+
+**입력**
+```python
+()[]{}
+```
+
+**출력**
+```python
+true
+```
+
+## 풀이
+- 여는 괄호만 추가하고 닫는 괄호가 나올시 pop한다.
+- 예외처리 케이스가 까다롭다. 다음 경우에 False를 반환하도록 한다.
+  - stack에 잔여 케이스가 남아있는 경우
+  - 스택에 아무것도 없는 상태에서 닫힌 괄호가 생길 시
+
+```python
+def isValid(a):
+    stack = []
+    table = {
+    ')':'(',
+    '}':'{',
+    ']':'[',
+    }
+    for s in a:
+        if s not in table:
+        # 여는 괄호만 추가
+            stack.append(s)
+        elif not stack or table[char] != stack.pop():
+            return False 
+            # stack에 남아있는 경우에 False return
+    return len(stack) == 0
+```

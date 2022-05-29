@@ -1,0 +1,66 @@
+---
+layout: post
+title: "[Python] Leetcode 347 Top K Frequent Elements"
+subtitle: "[Python] Leetcode 347 Top K Frequent Elements"
+categories: Algorithm
+tags: 문제풀이 자료구조 Hashmap BucketSort
+comments: true
+
+
+---
+## [Leetcode 347 Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+
+## 문제
+
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+![FrequentElements1](https://yunsikus.github.io/assets/img/post_img/FrequentElements1.jpg)
+
+
+## 풀이
+
+1. 해쉬맵 
+   
+- 숫자를 key, count를 value로하는 해쉬맵을 만듭니다. 그리고 정렬하여 k만큼 차례로 리턴합니다. 
+- 이때 해쉬맵을 만드는 시간복잡도는 O(N)이지만 정렬하는데 O(NlogN)이 듭니다. 
+
+**시간복잡도** : `O(n * log(n))`
+**공간복잡도** : `O(n)`
+
+```python
+def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    my_dict = dict()
+    for n in nums:
+        my_dict[n] =  my_dict.get(n,0)+1 # n
+    my_list = [[x,y] for x,y in my_dict.items()] # n
+    my_list.sort(key = lambda x: -x[1]) 
+    return [x[0] for x in my_list[:k]]
+```
+
+2. BucketSort
+   
+- 일반적인 정렬을 사용하면 시간복잡도 O(NlogN)이지만 BucketSort를 사용하면 O(N)으로 줄일 수 있습니다. 
+- 해쉬맵을 만드는것 까지는 같습니다. 하지만, count번째 원소에 숫자를 가지는 리스트를 새로 생성합니다. (`freq`)
+- 그리고 새로 생성된 리스트를 역순으로 확인하여 리턴합니다. 
+
+**시간복잡도** : `O(n)`
+**공간복잡도** : `O(n)` 
+
+
+```python
+def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    count = {}
+    for n in nums:
+        count[n] =  count.get(n,0)+1
+
+    freq = [[] for _ in range(len(nums)+1)]
+    for n,c in count.items():
+        freq[c].append(n)
+
+    res = []
+    for i in range(len(freq)-1,0,-1):
+        for n in freq[i]:   
+            res.append(n)
+            if len(res) == k:
+                return res
+```

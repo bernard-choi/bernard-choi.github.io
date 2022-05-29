@@ -1,0 +1,108 @@
+---  
+layout: post  
+title: "[Python] 디스크컨트롤러"  
+subtitle: "[Python] 디스크컨트롤러"  
+categories: Algorithm
+tags: 문제풀이 힙 Heap
+comments: true  
+---  
+
+## [프로그래머스 디스크 컨트롤러](https://programmers.co.kr/learn/courses/30/lessons/42627)
+
+## 문제
+
+하드디스크는 한 번에 하나의 작업만 수행할 수 있습니다. 디스크 컨트롤러를 구현하는 방법은 여러 가지가 있습니다. 가장 일반적인 방법은 요청이 들어온 순서대로 처리하는 것입니다.
+
+예를 들어, 
+
+```
+- 0ms 시점에 3ms가 소요되는 A작업 요청
+- 1ms 시점에 9ms가 소요되는 B작업 요청
+- 2ms 시점에 6ms가 소요되는 C작업 요청
+```
+와 같은 요청이 들어왔습니다. 이를 그림으로 표현하면 아래와 같습니다. 
+
+![디스크컨트롤러2](https://yunsikus.github.io/assets/img/post_img/디스크컨트롤러2.jpg)
+
+한번에 하나의 요청만을 수행할 수 있기 때문에 각각의 작업을 요청받은 순서대로 처리하면 다음과 같이 처리 됩니다. 
+
+4![디스크컨트롤러3](https://yunsikus.github.io/assets/img/post_img/디스크컨트롤러3.jpg)
+
+```
+- A: 3ms 시점에 작업 완료 (요청에서 종료까지 : 3ms)
+- B: 1ms부터 대기하다가, 3ms 시점에 작업을 시작해서 12ms 시점에 작업 완료(요청에서 종료까지 : 11ms)
+- C: 2ms부터 대기하다가, 12ms 시점에 작업을 시작해서 18ms 시점에 작업 완료(요청에서 종료까지 : 16ms)
+```
+
+이 때 각 작업의 요청부터 종료까지 걸린 시간으 평균은 10ms(=(3+11+16)/3)가 됩니다. 
+하지만 A -> C -> B 순서대로 처리하면
+
+![디스크컨트롤러4](https://yunsikus.github.io/assets/img/post_img/디스크컨트롤러4.jpg)
+
+```
+- A: 3ms 시점에 작업 완료(요청에서 종료까지 : 3ms)
+- C: 2ms부터 대기하다가, 3ms 시점에 작업을 시작해서 9ms 시점에 작업 완료(요청에서 종료까지 : 7ms)
+- B: 1ms부터 대기하다가, 9ms 시점에 작업을 시작해서 18ms 시점에 작업 완료(요청에서 종료까지 : 17ms)
+```
+
+이렇게 A → C → B의 순서로 처리하면 각 작업의 요청부터 종료까지 걸린 시간의 평균은 9ms(= (3 + 7 + 17) / 3)가 됩니다.
+
+각 작업에 대해 [작업이 요청되는 시점, 작업의 소요시간]을 담은 2차원 배열 jobs가 매개변수로 주어질 때, 작업의 요청부터 종료까지 걸린 시간의 평균을 가장 줄이는 방법으로 처리하면 평균이 얼마가 되는지 return 하도록 solution 함수를 작성해주세요. (단, 소수점 이하의 수는 버립니다)
+
+## 제한사항
+
+- jobs의 길이는 1 이상 500 이하입니다.
+- jobs의 각 행은 하나의 작업에 대한 [작업이 요청되는 시점, 작업의 소요시간] 입니다.
+- 각 작업에 대해 작업이 요청되는 시간은 0 이상 1,000 이하입니다.
+- 각 작업에 대해 작업의 소요시간은 1 이상 1,000 이하입니다.
+- 하드디스크가 작업을 수행하고 있지 않을 때에는 먼저 요청이 들어온 작업부터 처리합니다.
+
+## 입출력 예
+
+![디스크컨트롤러5](https://yunsikus.github.io/assets/img/post_img/디스크컨트롤러5.jpg)
+
+## 입출력 예 설명
+
+문제에 주어진 예와 같습니다.
+
+- 0ms 시점에 3ms 걸리는 작업 요청이 들어옵니다.
+- 1ms 시점에 9ms 걸리는 작업 요청이 들어옵니다.
+- 2ms 시점에 6ms 걸리는 작업 요청이 들어옵니다.
+
+## 풀이
+
+현재 시간(`current_time`) 안에 실행될 수 있는 디스크 중에서 가장 수행 시간이 짧은 디스크를 우선적으로 배치하는 원리로 풀 수 있습니다. 최소값을 계속 추출해야 함으로 힙 자료구조를 사용합니다. 
+
+- tasks를 먼저 시작시간과 길이로 정렬합니다. 
+- 현재 시간에서 실행시킬 수 있는 디스크를 담을 `q`를 힙 자료구조로 사용합니다. 
+- 먼저 `tasks`의 첫번째 원소를 `q`에 넣습니다. 
+  - 큐에서 heappop을 통해 최소값을 뽑습니다.
+  - 현재 시간(`current_time`)과 총 수행 시간(`response_time`)을 갱신합니다. 
+  - 현재시간(`current_time`)에서 실행가능한 디스크를 `tasks`에서 `q`로 집어넣습니다. 
+  - 만약 실행가능한 디스크가 없으면 tasks에서 첫번째 task(가장 시작시간이 빠른)를 q에 집어넣습니다.
+- `q` 즉 `task`가 남지 않을때까지 반복합니다. 
+  
+
+
+```python
+from collections import deque
+import heapq
+
+def solution(jobs):
+    tasks = deque(sorted([(x[1], x[0]) for x in jobs], key=lambda x: (x[1], x[0])))
+    q = []
+    heapq.heapify(q)
+    heapq.heappush(q, tasks.popleft())
+    current_time, total_response_time = 0, 0
+
+    while q:
+        durr, arr = heapq.heappop(q) # 3, 0
+        current_time = max(current_time + durr, arr + durr)
+        total_response_time += (current_time - arr)
+        while tasks and tasks[0][1] <= current_time:
+            heapq.heappush(q, tasks.popleft())
+        if tasks and len(q) == 0:
+            heapq.heappush(q, tasks.popleft())
+
+    return total_response_time // len(jobs)
+```

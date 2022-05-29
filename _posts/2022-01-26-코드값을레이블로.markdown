@@ -1,0 +1,35 @@
+---  
+layout: post
+title: "[SQL] 코드값을 레이블로 변경하기 - CASE"
+subtitle: "[SQL] 코드값을 레이블로 변경하기 - CASE"  
+categories: Data
+tags: SQL MySQL distinct
+comments: true  
+--- 
+- 로그 데이터 또는 업무 데이터로 저장된 코드 값을 그대로 집계에 사용하면 리포트의 가독성이 낮아진다. 
+- 따라서 리포트를 작성할 때 변환하는 등의 작업을 해야 하는데, 아예 집계할 때 미리 코드 값을 레이블로 변경하는 방법을 살펴보자. 
+- 다음 데이터처럼 회원 등록 때 사용한 장치를 저장하는 컬럼이 코드값(`1`:`데스크톱`, `2`:`스마트폰`, `3`:`애플리케이션`)으로 저장되어있다. 
+![sql_code_label1.jpg](https://yunsikus.github.io/assets/img/post_img/sql_code_label1.jpg)
+
+- 이를 `CASE`를 통해 레이블로 바꿀 수 있다.
+
+
+```SQL
+SELECT
+	user_id,
+	CASE
+		WHEN register_device = 1 THEN '데스크톱'
+		WHEN register_device = 2 THEN '스마트폰'
+		WHEN register_device = 3 THEN '애플리케이션'
+		ELSE ''
+	END AS device_name
+FROM
+	mst_users;
+```
+
+- 결과값은 다음과 같습니다. 
+  
+![sql_code_label2.jpg](https://yunsikus.github.io/assets/img/post_img/sql_code_label2.jpg)
+
+## 출처 
+데이터 분석을 위한 SQL 레시피
