@@ -1,10 +1,10 @@
 ---
 layout: list
-title: Algorithm
-slug: Algorithm
+title: Papers
+slug: Papers
 menu: true
 submenu: true
 order: 1
 description: >
-  알고리즘 연습
+  논문 요약 정리
 ---
