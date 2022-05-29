@@ -1,13 +1,13 @@
----  
-layout: post  
-title: "[Algorithm] 비트마스크"  
-subtitle: "[Algorithm] 비트마스크"  
+---
+layout: post
+title: "[Algorithm] 비트마스크"
+subtitle: "[Algorithm] 비트마스크"
 categories: Algorithm
 tags: DataStructure DP 비트마스크
-comments: true  
+comments: true
 
 
----  
+---
 ## 비트마스크
 
 - 정수의 이진수 표현을 자료 구조로 쓰는 기법을 **비트마스크** 라고 함.
@@ -99,4 +99,4 @@ print(bin(0b1010 ^ (1 << n)))  #  0b10
 
 ## 관련 문제 풀어보기
 
-[백준 1562 - 계단 수](https://yunsikus.github.io/algorithm/2021/06/20/1562_%EA%B3%84%EB%8B%A8%EC%88%98/)
+[백준 1562 - 계단 수](https://bernard-choi.github.io/algorithm/2021/06/20/1562_%EA%B3%84%EB%8B%A8%EC%88%98/)

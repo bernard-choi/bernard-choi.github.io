@@ -27,7 +27,7 @@ comments: true
 
 
 ## 입출력 예
-![기능개발1](https://yunsikus.github.io/assets/img/post_img/기능개발1.jpg)
+![기능개발1](https://bernard-choi.github.io/assets/img/post_img/기능개발1.jpg)
 
 ## 입출력 설명
 

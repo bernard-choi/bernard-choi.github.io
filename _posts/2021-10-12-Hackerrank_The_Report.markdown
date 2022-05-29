@@ -1,11 +1,11 @@
----  
+---
 layout: post
 title: "[SQL] Hackerrank The Report"
-subtitle: "[SQL] Hackerrank The Report"  
+subtitle: "[SQL] Hackerrank The Report"
 categories: Data
 tags: SQL Case Between
-comments: true  
----  
+comments: true
+---
 
 ## [Hackerrank The Report](https://www.hackerrank.com/challenges/the-report/problem?h_r=internal-search)
 
@@ -13,11 +13,11 @@ comments: true
 
 You are given two tables: Students and Grades. Students contains three columns ID, Name and Marks.
 
-![report_1](https://yunsikus.github.io/assets/img/post_img/report1.jpg)
+![report_1](https://bernard-choi.github.io/assets/img/post_img/report1.jpg)
 
 Grades contains the following data:
 
-![report_2](https://yunsikus.github.io/assets/img/post_img/report2.jpg)
+![report_2](https://bernard-choi.github.io/assets/img/post_img/report2.jpg)
 
 Ketty gives Eve a task to generate a report containing three columns: Name, Grade and Mark. Ketty doesn't want the NAMES of those students who received a grade lower than 8. The report must be in descending order by grade -- i.e. higher grades are entered first. If there is more than one student with the same grade (8-10) assigned to them, order those particular students by their name alphabetically. Finally, if the grade is lower than 8, use "NULL" as their name and list them by their grades in descending order. If there is more than one student with the same grade (1-7) assigned to them, order those particular students by their marks in ascending order.
 
@@ -29,21 +29,21 @@ Write a query to help Eve.
 
 Sample Input
 
-![report_3](https://yunsikus.github.io/assets/img/post_img/report3.jpg)
+![report_3](https://bernard-choi.github.io/assets/img/post_img/report3.jpg)
 
 Sample Output
 
-![report_4](https://yunsikus.github.io/assets/img/post_img/report4.jpg)
+![report_4](https://bernard-choi.github.io/assets/img/post_img/report4.jpg)
 
 
 ## 설명
 
-Mark에 해당하는 점수의 Grade를 가져와야 합니다. 이때 Grade가 8보다 작은 경우 Name을 'NULL'로 뽑아야 합니다. 
+Mark에 해당하는 점수의 Grade를 가져와야 합니다. 이때 Grade가 8보다 작은 경우 Name을 'NULL'로 뽑아야 합니다.
 
 ## 풀이1. CASE문으로 풀기
 
 - Case문으로 Grade가 8보다 작을 시 NULL, 아닐 시 NAME을 출력
-- Case문으로 MARKS의 점수를 매핑시킨다. 
+- Case문으로 MARKS의 점수를 매핑시킨다.
 - grade와 name으로 정렬
 
 ```sql
@@ -88,11 +88,11 @@ order by
 	g.grade desc,
 	s.name;
 ```
-![report_5](https://yunsikus.github.io/assets/img/post_img/report5.jpg)
+![report_5](https://bernard-choi.github.io/assets/img/post_img/report5.jpg)
 
-- 풀이 1처럼 Case문으로 Grade가 8보다 작을 시 NULL, 아닐 시 NAME을 출력 
+- 풀이 1처럼 Case문으로 Grade가 8보다 작을 시 NULL, 아닐 시 NAME을 출력
 - grade와 name으로 정렬
-- 최종 sql 쿼리는 아래와 같다. 
+- 최종 sql 쿼리는 아래와 같다.
 
 
 ```sql

@@ -1,34 +1,34 @@
----  
+---
 layout: post
 title: "[SQL] Consecutive Numbers"
-subtitle: "[SQL] Consecutive Numbers"  
+subtitle: "[SQL] Consecutive Numbers"
 categories: Data
 tags: SQL Case Join Window
-comments: true  
----  
+comments: true
+---
 
 ## [Leetcode Consecutive Numbers](https://leetcode.com/problems/consecutive-numbers/)
 
 ## 1. 문제
 
-![Consecutive_Numbers1.jpg](https://yunsikus.github.io/assets/img/post_img/Consecutive_Numbers1.jpg)
+![Consecutive_Numbers1.jpg](https://bernard-choi.github.io/assets/img/post_img/Consecutive_Numbers1.jpg)
 
 Write an SQL query to find all numbers that appear at least three times consecutively.
 
 Return the result table in any order.
 
-The query result format is in the following example. 
+The query result format is in the following example.
 
 
 ## 2. Input Output 예시
 
-![Consecutive_Numbers2.jpg](https://yunsikus.github.io/assets/img/post_img/Consecutive_Numbers2.jpg)
+![Consecutive_Numbers2.jpg](https://bernard-choi.github.io/assets/img/post_img/Consecutive_Numbers2.jpg)
 
 ## 설명
 
-- 바로 다음 num값을 컬럼에 이어 붙여서 후에 where절로 각 컬럼값이 같을 경우만 추출하면 됩니다. 
+- 바로 다음 num값을 컬럼에 이어 붙여서 후에 where절로 각 컬럼값이 같을 경우만 추출하면 됩니다.
 
-- inner join을 lag를 1일, 2일씩 걸고 2번하는 방법이 있습니다. 
+- inner join을 lag를 1일, 2일씩 걸고 2번하는 방법이 있습니다.
 - 윈도우 함수를 사용하여 간편하게 짤 수도 있습니다. (lag)
 
 ```

@@ -34,7 +34,7 @@ comments: true
 ## 입력
 
 ## 입출력 예
-![실패율1](https://yunsikus.github.io/assets/img/post_img/실패율1.jpg)
+![실패율1](https://bernard-choi.github.io/assets/img/post_img/실패율1.jpg)
 
 ## 입출력 설명
 
@@ -106,7 +106,7 @@ for stage in range(1,N+1):
         rate[stage] = 0
 ```
 
-최종 `실패율`은 다음과 같이 딕셔너리로 저장됩니다.  
+최종 `실패율`은 다음과 같이 딕셔너리로 저장됩니다.
 
 ```python
 print(rate) # {1: 0.125, 2: 0.42857142857142855, 3: 0.5, 4: 0.5, 5: 0.0}

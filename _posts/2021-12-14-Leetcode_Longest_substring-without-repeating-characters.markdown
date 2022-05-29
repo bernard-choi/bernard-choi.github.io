@@ -1,11 +1,11 @@
----  
+---
 layout: post
 title: "[SQL] Longest_substring_without_repeating_characters"
-subtitle: "[SQL] Longest_substring_without_repeating_characters"  
+subtitle: "[SQL] Longest_substring_without_repeating_characters"
 categories: Algorithm
 tags: 문제풀이 자료구조 Stack Queue
-comments: true  
----  
+comments: true
+---
 
 ## [Leetcode Longest_substring_without_repeating_characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/submissions/)
 
@@ -15,7 +15,7 @@ Given a string s, find the length of the longest substring without repeating cha
 
 ## 2. Input Output 예시
 
-![longest_substring_without_repeating_characters1.jpg](https://yunsikus.github.io/assets/img/post_img/longest_substring_without_repeating_characters1.jpg)
+![longest_substring_without_repeating_characters1.jpg](https://bernard-choi.github.io/assets/img/post_img/longest_substring_without_repeating_characters1.jpg)
 
 ## 설명
 

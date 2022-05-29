@@ -1,11 +1,11 @@
----  
-layout: post  
-title: "[Python] 순위검색"  
-subtitle: "[Python] 순위검색"  
+---
+layout: post
+title: "[Python] 순위검색"
+subtitle: "[Python] 순위검색"
 categories: Algorithm
 tags: 문제풀이 이진탐색 Dictionary
-comments: true  
----  
+comments: true
+---
 
 ## [프로그래머스 순위검색](https://programmers.co.kr/learn/courses/30/lessons/72412)
 
@@ -17,7 +17,7 @@ comments: true
 - 지원 직군 항목에 backend와 frontend 중 하나를 선택해야 합니다.
 - 지원 경력구분 항목에 junior와 senior 중 하나를 선택해야 합니다.
 - 선호하는 소울푸드로 chicken과 pizza 중 하나를 선택해야 합니다.
-- 
+-
 인재영입팀에 근무하고 있는 니니즈는 코딩테스트 결과를 분석하여 채용에 참여한 개발팀들에 제공하기 위해 지원자들의 지원 조건을 선택하면 해당 조건에 맞는 지원자가 몇 명인 지 쉽게 알 수 있는 도구를 만들고 있습니다.
 예를 들어, 개발팀에서 궁금해하는 문의사항은 다음과 같은 형태가 될 수 있습니다.
 
@@ -65,7 +65,7 @@ comments: true
     - 예를 들면, "cpp and - and senior and pizza 500"은 "cpp로 코딩테스트를 봤으며, 경력은 senior 이면서 소울푸드로 pizza를 선택한 지원자 중 코딩테스트 점수를 500점 이상 받은 사람은 모두 몇 명인가?"를 의미합니다.
 
 
-## 검색 키워드 제한사항 
+## 검색 키워드 제한사항
 
 - queries의 길이(검색 키워드 개수)는 2 이상 100,000 이하입니다.
 - 각 검색 키워드의 길이는 1 이상 10,000 이하로 빈 문자열인 경우는 없습니다.
@@ -78,13 +78,13 @@ comments: true
 
 ## 입출력 예
 
-![순위검색1](https://yunsikus.github.io/assets/img/post_img/순위검색1.jpg)
+![순위검색1](https://bernard-choi.github.io/assets/img/post_img/순위검색1.jpg)
 
 ## 입출력 예 설명
 
-지원자 정보를 표로 나타내면 다음과 같습니다. 
+지원자 정보를 표로 나타내면 다음과 같습니다.
 
-![순위검색2](https://yunsikus.github.io/assets/img/post_img/순위검색2.jpg)
+![순위검색2](https://bernard-choi.github.io/assets/img/post_img/순위검색2.jpg)
 
 `"java and backend and junior and pizza 100"` : java로 코딩테스트를 봤으며, backend 직군을 선택했고 junior 경력이면서 소울푸드로 pizza를 선택한 지원자 중 코딩테스트 점수를 100점 이상 받은 지원자는 1명 입니다.
 `"python and frontend and senior and chicken 200"` : python으로 코딩테스트를 봤으며, frontend 직군을 선택했고, senior 경력이면서 소울 푸드로 chicken을 선택한 지원자 중 코딩테스트 점수를 200점 이상 받은 지원자는 1명 입니다.
@@ -95,14 +95,14 @@ comments: true
 
 ## 풀이
 
-문제의 핵심은 info 정보를 바탕으로 미리 해당 쿼리에 속하는 지원자들의 점수를 저장하는 것입니다. 미리 저장해놓지 않고 그때 그때 쿼리 형식으로 접근하면 효율성 테스트를 통과하지 못합니다. 
+문제의 핵심은 info 정보를 바탕으로 미리 해당 쿼리에 속하는 지원자들의 점수를 저장하는 것입니다. 미리 저장해놓지 않고 그때 그때 쿼리 형식으로 접근하면 효율성 테스트를 통과하지 못합니다.
 
 - 모든 경우의 수를 키로, 점수를 value로 가지는 dictionary를 생성합니다.
     - ex) `{(cpp, backend, junior, chicken):[], ... , (-,-,-,-):[]}`
-- 다음, `info` 정보를 가지고 해당 `query`에 해당하는 경우의 value에 점수를 차례로 append합니다. 
+- 다음, `info` 정보를 가지고 해당 `query`에 해당하는 경우의 value에 점수를 차례로 append합니다.
     - 예를 들면, query가 `"cpp and - and senior and pizza 250"`인 경우 (cpp, backend, senior, pizza), (cpp, frontend, senior, pizza), (cpp, -, senior, pizza)키의 value에 250을 추가합니다.
--  `query`정보를 가지고 dictionary에서 값을 가져오면 해당 쿼리에 해당하는 점수들이 들어있는 리스트가 나옵니다. 이 리스트에서 query 점수보다 높은 지원자들의 수를 구합니다. 
-   -  이때 `index_of_greater_equal_than_x(a,x)` 함수를 사용하여 query 점수보다 높은 지원자들의 수를 구합니다. 
+-  `query`정보를 가지고 dictionary에서 값을 가져오면 해당 쿼리에 해당하는 점수들이 들어있는 리스트가 나옵니다. 이 리스트에서 query 점수보다 높은 지원자들의 수를 구합니다.
+   -  이때 `index_of_greater_equal_than_x(a,x)` 함수를 사용하여 query 점수보다 높은 지원자들의 수를 구합니다.
 
 ```python
 from bisect import bisect_left, bisect_right

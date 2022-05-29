@@ -1,13 +1,13 @@
----  
-layout: post  
-title: "[Python] 자물쇠와 열쇠"  
-subtitle: "[Python] 자물쇠와 열쇠"  
+---
+layout: post
+title: "[Python] 자물쇠와 열쇠"
+subtitle: "[Python] 자물쇠와 열쇠"
 categories: Algorithm
 tags: 문제풀이 시뮬레이션 Simulation
-comments: true  
+comments: true
 
 
----  
+---
 ## [Programmers : 메뉴리뉴얼](https://programmers.co.kr/learn/courses/30/lessons/60059)
 
 ## 문제 설명
@@ -27,12 +27,12 @@ comments: true
   - 0은 홈 부분, 1은 돌기 부분을 나타냅니다.
 
 ## 입출력 예
-![자물쇠와열쇠1](https://yunsikus.github.io/assets/img/post_img/자물쇠와열쇠1.jpg)
+![자물쇠와열쇠1](https://bernard-choi.github.io/assets/img/post_img/자물쇠와열쇠1.jpg)
 
 ## 입출력 예에 대한 설명
-![자물쇠와열쇠2](https://yunsikus.github.io/assets/img/post_img/자물쇠와열쇠2.jpg)
+![자물쇠와열쇠2](https://bernard-choi.github.io/assets/img/post_img/자물쇠와열쇠2.jpg)
 
-## 풀이  
+## 풀이
 1. `lock`의 `size`만큼 상하좌우로 패딩을 둡니다.(new_lock). `new_lock`의 size는 `lock`의 3배가 됩니다.
 
 2. 열쇠를 맞춘 후 `check함수`를 통해 검사합니다.(모든 lock의 원소들이 1인지)

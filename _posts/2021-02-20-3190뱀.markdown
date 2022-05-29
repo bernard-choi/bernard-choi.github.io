@@ -48,15 +48,15 @@ dy = [1,0,-1,0]
 ```
 `up`에서 `D` -> `right`
 
-`up`에서 `L` -> `left`  
+`up`에서 `L` -> `left`
 
-`down`에서 `D` -> `left`  
+`down`에서 `D` -> `left`
 
 `down`에서 `L` -> `right`
 
 `right` 에서 `D` -> `down`
 
-`right` 에서 `L` -> `up`  
+`right` 에서 `L` -> `up`
 
 `left` 에서 `D` -> `up`
 

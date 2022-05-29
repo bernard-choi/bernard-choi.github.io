@@ -1,11 +1,11 @@
----  
+---
 layout: post
 title: "[SQL] Hackerrank Challenges"
-subtitle: "[SQL] Hackerrank Challenges"  
+subtitle: "[SQL] Hackerrank Challenges"
 categories: Data
-tags: SQL With 
-comments: true  
----  
+tags: SQL With
+comments: true
+---
 
 ## [Hackerrank Challenges](https://www.hackerrank.com/challenges/challenges/problem?h_r=internal-search)
 
@@ -21,15 +21,15 @@ Julia asked her students to create some coding challenges. Write a query to prin
 
 Input Hackers Table
 
-![Challenges_1](https://yunsikus.github.io/assets/img/post_img/Challenges1.jpg)
+![Challenges_1](https://bernard-choi.github.io/assets/img/post_img/Challenges1.jpg)
 
 Input Challenges Table
 
-![Challenges_2](https://yunsikus.github.io/assets/img/post_img/Challenges2.jpg)
+![Challenges_2](https://bernard-choi.github.io/assets/img/post_img/Challenges2.jpg)
 
 Output Table
 
-![Challenges_3](https://yunsikus.github.io/assets/img/post_img/Challenges3.jpg)
+![Challenges_3](https://bernard-choi.github.io/assets/img/post_img/Challenges3.jpg)
 
 ## 설명
 
@@ -58,16 +58,16 @@ ORDER BY
 	h.hacker_id;
 ```
 
-![Challenges_4](https://yunsikus.github.io/assets/img/post_img/Challenges4.jpg)
+![Challenges_4](https://bernard-choi.github.io/assets/img/post_img/Challenges4.jpg)
 
 
-이제 다음 경우로 필터링해야한다. 
+이제 다음 경우로 필터링해야한다.
 
-1) challenges_created가 최대값 
-2) challenges_created가 겹치는 값이 없을 경우(=1) 필터링해야한다. 
-   
+1) challenges_created가 최대값
+2) challenges_created가 겹치는 값이 없을 경우(=1) 필터링해야한다.
 
-최대값의 경우 다음과 같다. 
+
+최대값의 경우 다음과 같다.
 
 ```sql
 SELECT MAX(challenges_created) FROM -- filtereing query 1
@@ -87,7 +87,7 @@ ORDER BY
     h.hacker_id) sub;
 ```
 
-- 위 값을 subquery로 넣어 필터링한다. 
+- 위 값을 subquery로 넣어 필터링한다.
 
 ```sql
 SELECT -- base query
@@ -154,7 +154,7 @@ HAVING
 	count(*) = 1;
 ```
 
-- 위 쿼리를 서브쿼리로 필터링하면 최종 쿼리는 다음과 같다. 
+- 위 쿼리를 서브쿼리로 필터링하면 최종 쿼리는 다음과 같다.
 
 ```sql
 SELECT -- base query
@@ -216,14 +216,14 @@ ORDER BY
 	h.hacker_id;
 ```
 
-- 위 코드를 살펴보면 같은 base query가 중복되어 계속 사용되는 것을 볼 수 있다. 
+- 위 코드를 살펴보면 같은 base query가 중복되어 계속 사용되는 것을 볼 수 있다.
 - 이러한 경우 with 문을 통해 중복을 없엘 수 있다.
 
 ## 풀이2. With문 으로 풀기
 
-- 반복되는 쿼리를 counter에 담아둔다. 
-- counter를 사용하여 필터링하면 쿼리가 간략해진다. 
-  
+- 반복되는 쿼리를 counter에 담아둔다.
+- counter를 사용하여 필터링하면 쿼리가 간략해진다.
+
 ```sql
 WITH counter AS (
 SELECT
@@ -237,7 +237,7 @@ INNER JOIN Hackers ON
 GROUP BY
 	hackers.hacker_id,
 	hackers.name )
-	
+
 SELECT
 	*
 FROM

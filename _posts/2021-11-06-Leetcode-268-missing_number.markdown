@@ -14,7 +14,7 @@ comments: true
 
 Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
 
-![missing_number1](https://yunsikus.github.io/assets/img/post_img/missing_number1.jpg)
+![missing_number1](https://bernard-choi.github.io/assets/img/post_img/missing_number1.jpg)
 
 
 ## 풀이
@@ -40,9 +40,9 @@ class Solution:
 
 2. 해시 테이블
 - False로 된 리스트를 생성하고 nums 리스트의 각 원소 인덱스마다 True로 바꿔준다.
-  
+
 **시간복잡도** : `O(n)`
-**공간복잡도** : `O(S)` 
+**공간복잡도** : `O(S)`
 
 
 ```python
@@ -62,7 +62,7 @@ class Solution:
 - nums의 전체 합에서 가우스 합(n*(n+1)/2)을 뺀다.
 
 **시간복잡도** : `O(n)`
-**공간복잡도** : `O(1)` 
+**공간복잡도** : `O(1)`
 
 ```python
 class Solution:

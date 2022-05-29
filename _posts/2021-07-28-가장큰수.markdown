@@ -1,11 +1,11 @@
----  
-layout: post  
-title: "[Python] 가장 큰 수"  
-subtitle: "[Python] 가장 큰 수"  
+---
+layout: post
+title: "[Python] 가장 큰 수"
+subtitle: "[Python] 가장 큰 수"
 categories: Algorithm
 tags: 문제풀이 정렬
-comments: true  
----  
+comments: true
+---
 
 ## [프로그래머스 가장큰수](https://programmers.co.kr/learn/courses/30/lessons/42746)
 
@@ -25,7 +25,7 @@ comments: true
 
 ## 입출력 예
 
-![가장큰수](https://yunsikus.github.io/assets/img/post_img/가장큰수.jpg)
+![가장큰수](https://bernard-choi.github.io/assets/img/post_img/가장큰수.jpg)
 
 ## 입출력 예 설명
 
@@ -37,8 +37,8 @@ comments: true
 - 각 원소를 4번 반복하여 4번째 자리까지를 기준으로 정렬
   - ex) [9, 10, 11, 99] 이면 [9999, 1010, 1111, 9999]로 만들고 정렬
 - 이때, python의 sort함수에서 key를 설정하여 간단하게 풀 수 있습니다.
-- `numbers`에 원소가 [0,0,0]이라면 이어붙일 경우 '000'이 아닌 0이다. 
-- 따라서 `numbers`의 첫번째 원소가 0이라면, `answer`로 0을 반환한다. 
+- `numbers`에 원소가 [0,0,0]이라면 이어붙일 경우 '000'이 아닌 0이다.
+- 따라서 `numbers`의 첫번째 원소가 0이라면, `answer`로 0을 반환한다.
 
 
 ```python

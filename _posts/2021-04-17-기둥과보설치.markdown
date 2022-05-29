@@ -1,13 +1,13 @@
----  
-layout: post  
-title: "[Python] 기둥과 보 설치"  
-subtitle: "[Python] 기둥과 보 설치"  
+---
+layout: post
+title: "[Python] 기둥과 보 설치"
+subtitle: "[Python] 기둥과 보 설치"
 categories: Algorithm
 tags: 문제풀이 시뮬레이션 Simulation
-comments: true  
+comments: true
 
 
----  
+---
 ## [Programmers : 기둥과 보 설치](https://programmers.co.kr/learn/courses/30/lessons/60061)
 
 ## 문제 설명
@@ -22,7 +22,7 @@ comments: true
 
 2차원 벽면은 n x n 크기 정사각 격자 형태이며, 각 격자는 1 x 1 크기입니다. 맨 처음 벽면은 비어있는 상태입니다. 기둥과 보는 격자선의 교차점에 걸치지 않고, 격자 칸의 각 변에 정확히 일치하도록 설치할 수 있습니다. 다음은 기둥과 보를 설치해 구조물을 만든 예시입니다.
 
-![기둥과보설치1](https://yunsikus.github.io/assets/img/post_img/기둥과보설치1.jpg)
+![기둥과보설치1](https://bernard-choi.github.io/assets/img/post_img/기둥과보설치1.jpg)
 
 예를 들어, 위 그림은 다음 순서에 따라 구조물을 만들었습니다.
 
@@ -59,7 +59,7 @@ comments: true
 ## 입출력 예
 
 
-![기둥과보설치2](https://yunsikus.github.io/assets/img/post_img/기둥과보설치2.jpg)
+![기둥과보설치2](https://bernard-choi.github.io/assets/img/post_img/기둥과보설치2.jpg)
 
 ## 입출력 예에 대한 설명
 
@@ -71,13 +71,13 @@ comments: true
 
 여덟 번째 작업을 수행 후 아래와 같은 구조물 만들어집니다.
 
-![기둥과보설치3](https://yunsikus.github.io/assets/img/post_img/기둥과보설치3.jpg)
+![기둥과보설치3](https://bernard-choi.github.io/assets/img/post_img/기둥과보설치3.jpg)
 
 아홉 번째 작업의 경우, (1, 1)에서 오른쪽에 있는 보를 삭제하면 (2, 1)에서 오른쪽에 있는 보는 조건을 만족하지 않으므로 무시됩니다.
 
 열 번째 작업의 경우, (2, 2)에서 위쪽 방향으로 기둥을 세울 경우 조건을 만족하지 않으므로 무시됩니다.
 
-## 풀이  
+## 풀이
 #### 1) 현재 상태가 가능한 구조물인지 확인하는 함수를 구현합니다.
 
 - 기둥의 경우

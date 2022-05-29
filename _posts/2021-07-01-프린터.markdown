@@ -32,7 +32,7 @@ comments: true
 
 
 ## 입출력 예
-![프린터1](https://yunsikus.github.io/assets/img/post_img/프린터1.jpg)
+![프린터1](https://bernard-choi.github.io/assets/img/post_img/프린터1.jpg)
 
 ## 입출력 예 설명
 
@@ -46,19 +46,19 @@ comments: true
 
 ## 풀이
 
-- enumerate를 이용하여 `priorities`를 (중요도(p)), 인덱스(i))로 구성된 리스트로 변환합니다. 
-- 리스트에서의 `pop(0)`은 시간복잡도 `O(N)` 이고 deque에서의 `popleft()`는 `O(1)`으로 deque를 사용합니다. 
-  - `priorities` 리스트를 deque로 변환합니다. 
+- enumerate를 이용하여 `priorities`를 (중요도(p)), 인덱스(i))로 구성된 리스트로 변환합니다.
+- 리스트에서의 `pop(0)`은 시간복잡도 `O(N)` 이고 deque에서의 `popleft()`는 `O(1)`으로 deque를 사용합니다.
+  - `priorities` 리스트를 deque로 변환합니다.
 - `queue`에서 `leftpop()`한 원소(`J`)와 나머지 `queue`의 max값을 비교합니다. (`queue`가 빌때까지 반복)
-  - `J`의 중요도보다 max값이 크다면 `J`를 `queue` 뒤에 넣어줍니다. 
-  - 아니라면 `answer`를 1을 더해주고 `J`의 문서가 `location`인지 확인합니다. 
-  - `J`의 문서가 `location`이면 break하고 `answer`를 리턴합니다. 
+  - `J`의 중요도보다 max값이 크다면 `J`를 `queue` 뒤에 넣어줍니다.
+  - 아니라면 `answer`를 1을 더해주고 `J`의 문서가 `location`인지 확인합니다.
+  - `J`의 문서가 `location`이면 break하고 `answer`를 리턴합니다.
 
 
 ```python
 from collections import deque
 def solution(priorities, location):
-    priorities = [(p,i) for i,p in enumerate(priorities)] 
+    priorities = [(p,i) for i,p in enumerate(priorities)]
     queue = deque(priorities)
     answer = 0
     while queue:

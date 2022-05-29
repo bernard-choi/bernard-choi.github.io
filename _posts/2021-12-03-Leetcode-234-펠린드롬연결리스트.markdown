@@ -11,9 +11,9 @@ comments: true
 ## [Leetcode 234 팰린드롬 연결 리스트](https://leetcode.com/problems/palindrome-linked-list/)
 
 ## 문제
-연결 리스트가 팰린드롬 구조인지 판별하라. 
+연결 리스트가 팰린드롬 구조인지 판별하라.
 
-![Parlindrome Linked List1](https://yunsikus.github.io/assets/img/post_img/Parlindrome_Linked_List.jpg)
+![Parlindrome Linked List1](https://bernard-choi.github.io/assets/img/post_img/Parlindrome_Linked_List.jpg)
 
 **입력**
 ```python
@@ -29,35 +29,35 @@ True
 
 #### 1. 리스트 변환
 
-- 팰린드롬 여부를 판별하기 위해서는 앞뒤로 모두 추출할 수 있는 자료구조가 필요하다.  
-- 파이썬의 리스트는 pop()함수에 인덱스를 지정할 수 있어 마지막 요소가 아니라도 얼마든지 원하는 위치를 자유롭게 추출할 수 있다. 
-- q.pop(0) 에서 시간 복잡도가 `O(N)`이 발생한다. 
-  
+- 팰린드롬 여부를 판별하기 위해서는 앞뒤로 모두 추출할 수 있는 자료구조가 필요하다.
+- 파이썬의 리스트는 pop()함수에 인덱스를 지정할 수 있어 마지막 요소가 아니라도 얼마든지 원하는 위치를 자유롭게 추출할 수 있다.
+- q.pop(0) 에서 시간 복잡도가 `O(N)`이 발생한다.
+
 
 ```python
 def isPalindrome(self, head: ListNode) -> bool:
     q: List = []
     if not head:
         return True
-    
+
     node = head
     # 리스트 변환
     while node is not None:
         q.append(node.val)
         node = node.next
-    
+
     # 펠린드롬 판별
     while len(q) > 1:
         if q.pop(0) != q.pop():
             return False
-          
+
     return True
 ```
 
 #### 2. deque를 이용한 최적화
 
-- 맨 앞의 데이터를 가져올 떄 `O(n)` 이내에 처리할 수 있는 자료형이 필요하다. 
-- 파이썬의 데크는 이중 연결 리스트 구조로 양쪽 방향 모두 추출하는데 시간 복잡도 `O(1)`에 실행된다. 
+- 맨 앞의 데이터를 가져올 떄 `O(n)` 이내에 처리할 수 있는 자료형이 필요하다.
+- 파이썬의 데크는 이중 연결 리스트 구조로 양쪽 방향 모두 추출하는데 시간 복잡도 `O(1)`에 실행된다.
 
 ```python
 def isPalindrome(self, head: ListNode) -> bool:
@@ -65,17 +65,17 @@ def isPalindrome(self, head: ListNode) -> bool:
 
     if not head:
         return True
-    
+
     node = head
     # 리스트 변환
     while node is not None:
         q.append(node.val)
         node = node.next
-    
+
     # 펠린드롬 판별
     while len(q) > 1:
         if q.popleft() != q.pop():
             return False
-          
+
     return True
 ```

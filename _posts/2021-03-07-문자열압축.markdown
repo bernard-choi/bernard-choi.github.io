@@ -26,7 +26,7 @@ comments: true
 - s는 알파벳 소문자로만 이루어져 있습니다.
 
 ## 입출력 예
-![오픈채팅방1](https://yunsikus.github.io/assets/img/post_img/문자열압축1.jpg)
+![오픈채팅방1](https://bernard-choi.github.io/assets/img/post_img/문자열압축1.jpg)
 
 ## 풀이
 `prev` : 이전 문자열
@@ -56,7 +56,7 @@ def solutions(s):
                 count += 1
             else: # 이전 문자열과 다르면
                 new_s += str(count) + prev if count >= 2 else prev # count + prev를 new_s에 추가(count가 1이면 prev만)
-                count = 1   
+                count = 1
                 prev = s[i*j:i*j+i] # prev 갱신
 
         new_s += str(count) + prev if count >= 2 else prev

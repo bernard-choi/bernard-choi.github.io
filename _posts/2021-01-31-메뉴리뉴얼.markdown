@@ -1,13 +1,13 @@
----  
-layout: post  
-title: "[Python] 메뉴리뉴얼"  
-subtitle: "[Python] 메뉴리뉴얼"  
+---
+layout: post
+title: "[Python] 메뉴리뉴얼"
+subtitle: "[Python] 메뉴리뉴얼"
 categories: Algorithm
 tags: 문제풀이 조합 백트래킹
-comments: true  
+comments: true
 
 
----  
+---
 ## [Programmers : 메뉴리뉴얼](https://programmers.co.kr/learn/courses/30/lessons/72411)
 
 ## 문제 설명
@@ -21,14 +21,14 @@ comments: true
 (각 손님은 단품메뉴를 2개 이상 주문해야 하며, 각 단품메뉴는 A ~ Z의 알파벳 대문자로 표기합니다.)
 
 ### 손님 번호	주문한 단품메뉴 조합
-![menu_comb](https://yunsikus.github.io/assets/img/post_img/메뉴리스트1.jpg)
+![menu_comb](https://bernard-choi.github.io/assets/img/post_img/메뉴리스트1.jpg)
 
 
 
 가장 많이 함께 주문된 단품메뉴 조합에 따라 스카피가 만들게 될 코스요리 메뉴 구성 후보는 다음과 같습니다.
 
 ### 코스 종류	메뉴 구성	설명
-![menu_comb2](https://yunsikus.github.io/assets/img/post_img/메뉴리스트2.jpg)
+![menu_comb2](https://bernard-choi.github.io/assets/img/post_img/메뉴리스트2.jpg)
 
 
 ## 문제
@@ -47,7 +47,7 @@ comments: true
   - 만약 가장 많이 함께 주문된 메뉴 구성이 여러 개라면, 모두 배열에 담아 return 하면 됩니다.
   - orders와 course 매개변수는 return 하는 배열의 길이가 1 이상이 되도록 주어집니다.
 
-## 풀이  
+## 풀이
 1. ['A', 'B', 'C'] 라는 배열이 들어왔을 시 AB, AC, BC를 출력하도록 do 라는 함수를 먼저 생성함. 이때 중복 및 순서를 고려하였으며 `백트래킹`을 이용. (배열이 오름차순으로 정렬되어있음을 가정)
 
 
@@ -100,7 +100,7 @@ def solution(orders, course):
         for order in orders: # ["XYZ", "XWY", 'WXA']
             check = [False] * len(order)
             order = sorted(order) # 먼저 정렬하여 중복 제거
-            hubo = []    
+            hubo = []
             do(order, 0, cs_len)
 
         count_dict = Counter(hubo_list)

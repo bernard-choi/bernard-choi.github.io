@@ -1,13 +1,13 @@
----  
-layout: post  
-title: "[Python] 7576 토마토"  
-subtitle: "[Python] 7576 토마토"  
+---
+layout: post
+title: "[Python] 7576 토마토"
+subtitle: "[Python] 7576 토마토"
 categories: Algorithm
 tags: 문제풀이 BFS
-comments: true  
+comments: true
 
 
----  
+---
 ## [7576 토마토](https://www.acmicpc.net/problem/7576)
 
 ## 문제
@@ -76,7 +76,7 @@ def bfs(queue):
         return count
 
 
-queue = deque(start_point)  
-print(bfs(queue))  
+queue = deque(start_point)
+print(bfs(queue))
 
 ```

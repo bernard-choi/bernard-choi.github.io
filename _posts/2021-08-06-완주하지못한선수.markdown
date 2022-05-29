@@ -1,11 +1,11 @@
----  
-layout: post  
-title: "[Python] 완주하지 못한 선수"  
-subtitle: "[Python] 완주하지 못한 선수"  
+---
+layout: post
+title: "[Python] 완주하지 못한 선수"
+subtitle: "[Python] 완주하지 못한 선수"
 categories: Algorithm
 tags: 문제풀이 Hash
-comments: true  
----  
+comments: true
+---
 
 ## 문제
 
@@ -23,7 +23,7 @@ comments: true
 
 ## 입출력 예
 
-![완주하지못한선수](https://yunsikus.github.io/assets/img/post_img/완주하지못한선수.jpg)
+![완주하지못한선수](https://bernard-choi.github.io/assets/img/post_img/완주하지못한선수.jpg)
 
 ## 입출력 예 설명
 
@@ -38,10 +38,10 @@ comments: true
 
 ## 풀이
 
-두 가지 방법으로 풀 수 있습니다. 첫번째는, Dictionary 즉 Hash 자료구조를 이용하는 것입니다. 
-선수이름과 개수를 key, value로 지닌 Dictionary를 생성합니다. 그리고 두 딕셔너리의 차집합이 정답이 됩니다. 
+두 가지 방법으로 풀 수 있습니다. 첫번째는, Dictionary 즉 Hash 자료구조를 이용하는 것입니다.
+선수이름과 개수를 key, value로 지닌 Dictionary를 생성합니다. 그리고 두 딕셔너리의 차집합이 정답이 됩니다.
 
-또 다른 방법은 participant와 completion을 정렬 후, 차례로 추출하여 값이 같은지 확인합니다. 만약 다른 값이 생긴다면 participant에 있는 값이 completion에는 없는 것으로 해당 value를 정답으로 반환합니다. 마지막 추출까지 다른 값이 안나올 경우 participant의 마지막 값이 정답이 됩니다. 
+또 다른 방법은 participant와 completion을 정렬 후, 차례로 추출하여 값이 같은지 확인합니다. 만약 다른 값이 생긴다면 participant에 있는 값이 completion에는 없는 것으로 해당 value를 정답으로 반환합니다. 마지막 추출까지 다른 값이 안나올 경우 participant의 마지막 값이 정답이 됩니다.
 
 ```python
 # 방법 1 (Counter 사용)

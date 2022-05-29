@@ -50,7 +50,7 @@ comments: true
 
 ## 입출력 예
 
-![괄호변환1](https://yunsikus.github.io/assets/img/post_img/괄호변환1.jpg)
+![괄호변환1](https://bernard-choi.github.io/assets/img/post_img/괄호변환1.jpg)
 
 ## 입출력 예에 대한 설명
 
@@ -131,7 +131,7 @@ def solution(p):
         if count == 0:
             break
 
-    u = ''.join(u)  
+    u = ''.join(u)
     v = ''.join(stack)
 
     # 과정 3
@@ -147,5 +147,5 @@ def solution(p):
         for bracket in u:
             answer += ''.join(['(' if x==')' else ')' for x in bracket])
 
-        return answer       
+        return answer
 ```

@@ -1,11 +1,11 @@
----  
-layout: post  
-title: "[Python] 합승 택시 요금"  
-subtitle: "[Python] 합승 택시 요금"  
+---
+layout: post
+title: "[Python] 합승 택시 요금"
+subtitle: "[Python] 합승 택시 요금"
 categories: Algorithm
 tags: 문제풀이 다익스트라 dijkstra
-comments: true  
----  
+comments: true
+---
 
 ## [프로그래머스 합승 택시 요금](https://programmers.co.kr/learn/courses/30/lessons/72413)
 
@@ -14,7 +14,7 @@ comments: true
 지원자가 지원서에 입력한 4가지의 정보와 획득한 코딩테스트 점수를 하나의 문자열로 구성한 값의 배열 info, 개발팀이 궁금해하는 문의조건이 문자열 형태로 담긴 배열 query가 매개변수로 주어질 때,
 각 문의조건에 해당하는 사람들의 숫자를 순서대로 배열에 담아 return 하도록 solution 함수를 완성해 주세요.
 
-![합승택시요금1](https://yunsikus.github.io/assets/img/post_img/합승택시요금1.jpg)
+![합승택시요금1](https://bernard-choi.github.io/assets/img/post_img/합승택시요금1.jpg)
 
 위 예시 그림은 택시가 이동 가능한 반경에 있는 6개 지점 사이의 이동 가능한 택시노선과 예상요금을 보여주고 있습니다.
 그림에서 A와 B 두 사람은 출발지점인 4번 지점에서 출발해서 택시를 타고 귀가하려고 합니다. A의 집은 6번 지점에 있으며 B의 집은 2번 지점에 있고 두 사람이 모두 귀가하는 데 소요되는 예상 최저 택시요금이 얼마인 지 계산하려고 합니다.
@@ -52,7 +52,7 @@ comments: true
 
 ## 입출력 예
 
-![합승택시요금2](https://yunsikus.github.io/assets/img/post_img/합승택시요금2.jpg)
+![합승택시요금2](https://bernard-choi.github.io/assets/img/post_img/합승택시요금2.jpg)
 
 ## 입출력 예 설명
 
@@ -60,21 +60,21 @@ comments: true
 문제 예시와 같습니다.
 
 **입출력 예 #2**
-![합승택시요금3](https://yunsikus.github.io/assets/img/post_img/합승택시요금3.jpg)
+![합승택시요금3](https://bernard-choi.github.io/assets/img/post_img/합승택시요금3.jpg)
 
 - 합승을 하지 않고, B는 3→2→1, A는 3→6→4 경로로 각자 택시를 타고 가는 것이 최저 예상 택시요금입니다.
 
 - 따라서 최저 예상 택시요금은 (3 + 6) + (1 + 4) = 14원 입니다.
 
 **입출력 예 #3**
-![합승택시요금4](https://yunsikus.github.io/assets/img/post_img/합승택시요금4.jpg)
+![합승택시요금4](https://bernard-choi.github.io/assets/img/post_img/합승택시요금4.jpg)
 
 A와 B가 4→6 구간을 합승하고 B가 6번 지점에서 내린 후, A가6→5` 구간을 혼자 타고 가는 것이 최저 예상 택시요금입니다.
 따라서 최저 예상 택시요금은 7 + 11 = 18원 입니다.
 
 ## 풀이
 
-출발지를 S, 사람 a의 목적지를 A, 사람 b의 목적지를 B, 마지막 합승에서 하차하는 지점을 C라고 합시다. 우리는 S~C 구간, C~A 구간, C~B 구간의 합이 최소화되는 값을 찾는것이 목적입니다. S가 위치할 수 있는 모든 경우의 수를 고려하고 최단 거리 알고리즘인 다익스트라를 이용하여 각각의 구간의 합을 구합니다. 구간의 합이 최소인 경우를 answer로 리턴하면 됩니다. 
+출발지를 S, 사람 a의 목적지를 A, 사람 b의 목적지를 B, 마지막 합승에서 하차하는 지점을 C라고 합시다. 우리는 S~C 구간, C~A 구간, C~B 구간의 합이 최소화되는 값을 찾는것이 목적입니다. S가 위치할 수 있는 모든 경우의 수를 고려하고 최단 거리 알고리즘인 다익스트라를 이용하여 각각의 구간의 합을 구합니다. 구간의 합이 최소인 경우를 answer로 리턴하면 됩니다.
 
 ```python
 import heapq
@@ -89,8 +89,8 @@ def dijkstra(graph, start):
     while queue:  # queue에 남아 있는 노드가 없으면 끝
         current_distance, current_destination = heapq.heappop(queue)  # 탐색 할 노드, 거리를 가져옴.
 
-        if distances[current_destination] < current_distance:  
-      # 현재 노드가 이미 처리된 노드라면 
+        if distances[current_destination] < current_distance:
+      # 현재 노드가 이미 처리된 노드라면
       # 기존에 있는 거리보다 길다면, 볼 필요도 없음
             continue
 

@@ -28,12 +28,12 @@ comments: true
 
 ## 입출력 예
 
-![가로등1](https://yunsikus.github.io/assets/img/post_img/가로등1.jpg)
+![가로등1](https://bernard-choi.github.io/assets/img/post_img/가로등1.jpg)
 
 
 ## 입출력 예 설명
 
-![가로등2](https://yunsikus.github.io/assets/img/post_img/가로등2.jpg)
+![가로등2](https://bernard-choi.github.io/assets/img/post_img/가로등2.jpg)
 
 ---
 

@@ -1,13 +1,13 @@
----  
-layout: post  
-title: "[Algorithm] union-find 알고리즘"  
-subtitle: "[Algorithm] union-find 알고리즘"  
+---
+layout: post
+title: "[Algorithm] union-find 알고리즘"
+subtitle: "[Algorithm] union-find 알고리즘"
 categories: Algorithm
 tags: 알고리즘 Kruscal Union-find graph
-comments: true  
+comments: true
 
 
----  
+---
 ## Union-Find 알고리즘
 
 Union-Find는 대표적인 그래프 알고리즘입니다. 바로 **합집합 찾기** 라는 의미를 가진 알고리즘입니다. 서로소 집합(Disjoint-Set)알고리즘이라고도 부릅니다. 구체적으로 여러개의 노드가 존재할 때 두개의 노드를 선택해서 현재 이 노드가 서로 같은 그래프에 속하는지 판별하는 알고리즘입니다.
@@ -25,7 +25,7 @@ Union-Find는 대표적인 그래프 알고리즘입니다. 바로 **합집합 �
 
 ex) `{1,2,3,4,5,6}`의 집합에서 (4,5), (5,6), (3,5), (1,3), (4,6), (2,4), (1,2), (3,4)를 싸이클이 생기는 경우를 제외하여 잇는다고하자. 이를 그래프로 표현하면
 
-![union_find1](https://yunsikus.github.io/assets/img/post_img/union_find1.jpg)
+![union_find1](https://bernard-choi.github.io/assets/img/post_img/union_find1.jpg)
 
 다음과 같습니다. 이를 완성하기 위한 구체적인 알고리즘 동작 방법을 알아봅시다.
 
@@ -42,7 +42,7 @@ ex) `{1,2,3,4,5,6}`의 집합에서 (4,5), (5,6), (3,5), (1,3), (4,6), (2,4), (1
 |-|-|-|-|-|-|-|
 |부모|1|2|3|4|4|6|
 
-![union_find2](https://yunsikus.github.io/assets/img/post_img/union_find2.jpg)
+![union_find2](https://bernard-choi.github.io/assets/img/post_img/union_find2.jpg)
 
 #### 3. Union (5,6)
 5의 루트노드는 4, 6의 루트노드는 6입니다. A'인 6의 부모 노드를 B'인 4로 설정합니다.
@@ -51,7 +51,7 @@ ex) `{1,2,3,4,5,6}`의 집합에서 (4,5), (5,6), (3,5), (1,3), (4,6), (2,4), (1
 |-|-|-|-|-|-|-|
 |부모|1|2|3|4|4|4|
 
-![union_find3](https://yunsikus.github.io/assets/img/post_img/union_find3.jpg)
+![union_find3](https://bernard-choi.github.io/assets/img/post_img/union_find3.jpg)
 
 #### 4. Union (3,5)
 3의 루트노드느 3, 5의 루트노드는 4입니다. A' 4의 부모노드를 B'인 3으로 설정합니다.
@@ -60,7 +60,7 @@ ex) `{1,2,3,4,5,6}`의 집합에서 (4,5), (5,6), (3,5), (1,3), (4,6), (2,4), (1
 |-|-|-|-|-|-|-|-|
 |부모|1|2|3|3|4|4|7|
 
-![union_find4](https://yunsikus.github.io/assets/img/post_img/union_find4.jpg)
+![union_find4](https://bernard-choi.github.io/assets/img/post_img/union_find4.jpg)
 
 #### 5. Union (1,3)
 
@@ -70,13 +70,13 @@ ex) `{1,2,3,4,5,6}`의 집합에서 (4,5), (5,6), (3,5), (1,3), (4,6), (2,4), (1
 |-|-|-|-|-|-|-|-|
 |부모|1|2|1|3|4|4|7|
 
-![union_find5](https://yunsikus.github.io/assets/img/post_img/union_find5.jpg)
+![union_find5](https://bernard-choi.github.io/assets/img/post_img/union_find5.jpg)
 
 #### 6. Union (4,6)
 
 4의 루트노드는 1, 6의 루트노드는 1입니다. 서로 같은 그래프에 포함되므로(싸이클이 생기는 경우) Union을 수행하지 않습니다.
 
-![union_find6](https://yunsikus.github.io/assets/img/post_img/union_find6.jpg)
+![union_find6](https://bernard-choi.github.io/assets/img/post_img/union_find6.jpg)
 
 
 #### 7. Union (2,4)
@@ -86,7 +86,7 @@ ex) `{1,2,3,4,5,6}`의 집합에서 (4,5), (5,6), (3,5), (1,3), (4,6), (2,4), (1
 |-|-|-|-|-|-|-|-|
 |부모|2|2|1|3|4|4|7|
 
-![union_find7](https://yunsikus.github.io/assets/img/post_img/union_find7.jpg)
+![union_find7](https://bernard-choi.github.io/assets/img/post_img/union_find7.jpg)
 
 #### 8. Union (1,2)
 1의 루트노드는 2, 2의 루트노드는 2로 Union을 수행하지 않습니다.
@@ -135,7 +135,7 @@ print(final_graph)
 
 ## 알고리즘을 활용하는 문제
 
-- [백준 1976: 여행가자](https://yunsikus.github.io/algorithm/2021/06/12/1976_%EC%97%AC%ED%96%89%EA%B0%80%EC%9E%90/)
+- [백준 1976: 여행가자](https://bernard-choi.github.io/algorithm/2021/06/12/1976_%EC%97%AC%ED%96%89%EA%B0%80%EC%9E%90/)
 
 ## Reference
 

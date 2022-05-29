@@ -21,32 +21,32 @@ comments: true
 
 예를 들어, N = 3이고, 학생 N**2명의 순서와 각 학생이 좋아하는 학생이 다음과 같은 경우를 생각해보자.
 
-![상어초등학교1](https://yunsikus.github.io/assets/img/post_img/상어초등학교1.jpg)
+![상어초등학교1](https://bernard-choi.github.io/assets/img/post_img/상어초등학교1.jpg)
 
 가장 먼저, 4번 학생의 자리를 정해야 한다. 현재 교실의 모든 칸은 빈 칸이다. 2번 조건에 의해 인접한 칸 중에서 비어있는 칸이 가장 많은 칸인 (2, 2)이 4번 학생의 자리가 된다.
 
-![상어초등학교2](https://yunsikus.github.io/assets/img/post_img/상어초등학교2.jpg)
+![상어초등학교2](https://bernard-choi.github.io/assets/img/post_img/상어초등학교2.jpg)
 
 
 다음 학생은 3번이다. 1번 조건을 만족하는 칸은 (1, 2), (2, 1), (2, 3), (3, 2) 이다. 이 칸은 모두 비어있는 인접한 칸이 2개이다. 따라서, 3번 조건에 의해 (1, 2)가 3번 학생의 자리가 된다.
 
-![상어초등학교3](https://yunsikus.github.io/assets/img/post_img/상어초등학교3.jpg)
+![상어초등학교3](https://bernard-choi.github.io/assets/img/post_img/상어초등학교3.jpg)
 
 다음은 9번 학생이다. 9번 학생이 좋아하는 학생의 번호는 8, 1, 2, 3이고, 이 중에 3은 자리에 앉아있다. 좋아하는 학생이 가장 많이 인접한 칸은 (1, 1), (1, 3)이다. 두 칸 모두 비어있는 인접한 칸이 1개이고, 행의 번호도 1이다. 따라서, 3번 조건에 의해 (1, 1)이 9번 학생의 자리가 된다.
 
-![상어초등학교4](https://yunsikus.github.io/assets/img/post_img/상어초등학교4.jpg)
+![상어초등학교4](https://bernard-choi.github.io/assets/img/post_img/상어초등학교4.jpg)
 
 이번에 자리를 정할 학생은 8번 학생이다. (2, 1)이 8번 학생이 좋아하는 학생과 가장 많이 인접한 칸이기 때문에, 여기가 그 학생의 자리이다.
 
-![상어초등학교5](https://yunsikus.github.io/assets/img/post_img/상어초등학교5.jpg)
+![상어초등학교5](https://bernard-choi.github.io/assets/img/post_img/상어초등학교5.jpg)
 
 7번 학생의 자리를 정해보자. 1번 조건을 만족하는 칸은 (1, 3), (2, 3), (3, 1), (3, 2)로 총 4개가 있고, 비어있는 칸과 가장 많이 인접한 칸은 (2, 3), (3, 2)이다. 행의 번호가 작은 (2, 3)이 7번 학생의 자리가 된다.
 
-![상어초등학교6](https://yunsikus.github.io/assets/img/post_img/상어초등학교6.jpg)
+![상어초등학교6](https://bernard-choi.github.io/assets/img/post_img/상어초등학교6.jpg)
 
 이런식으로 학생의 자리를 모두 정하면 다음과 같다.
 
-![상어초등학교7](https://yunsikus.github.io/assets/img/post_img/상어초등학교7.jpg)
+![상어초등학교7](https://bernard-choi.github.io/assets/img/post_img/상어초등학교7.jpg)
 
 이제 학생의 만족도를 구해야 한다. 학생의 만족도는 자리 배치가 모두 끝난 후에 구할 수 있다. 학생의 만족도를 구하려면 그 학생과 인접한 칸에 앉은 좋아하는 학생의 수를 구해야 한다. 그 값이 0이면 학생의 만족도는 0, 1이면 1, 2이면 10, 3이면 100, 4이면 1000이다.
 

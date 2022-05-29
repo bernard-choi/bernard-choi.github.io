@@ -1,16 +1,16 @@
----  
-layout: post  
-title: "[Algorithm] 스택과 큐"  
-subtitle: "[Algorithm] 스택과 큐"  
+---
+layout: post
+title: "[Algorithm] 스택과 큐"
+subtitle: "[Algorithm] 스택과 큐"
 categories: Algorithm
 tags: DataStructure Stack Queue
-comments: true  
+comments: true
 
 
----  
+---
 ## 스택(Stack)이란?
 
-![스택과큐1](https://yunsikus.github.io/assets/img/post_img/스택과큐1.jpg)
+![스택과큐1](https://bernard-choi.github.io/assets/img/post_img/스택과큐1.jpg)
 
 스택이란 쌓아 올린다는 것을 의미.
 따라서 스택 자료구조라는 것은 책을 쌓는 것처럼 차곡차곡 쌓아 올린 형태의 자료구조이다.
@@ -37,7 +37,7 @@ comments: true
 
 ## 큐(Queue)란?
 
-![스택과큐2](https://yunsikus.github.io/assets/img/post_img/스택과큐2.jpg)
+![스택과큐2](https://bernard-choi.github.io/assets/img/post_img/스택과큐2.jpg)
 
 Queue의 사전적 의미는 1. (무엇을 기다리는 사람, 자동차 등의) 줄, 혹은 줄을 서서 기다리는 것을 의미한다. 따라서 일상생활에서 놀이동산에서 줄을 서서 기다리는 것, 은행에서 먼저 온 사람의 업무를 창구에서 처리하는 것과 같이 선입선출(FIFO, First In First Out)방식의 자료구로를 말한다.
 

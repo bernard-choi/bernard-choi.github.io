@@ -1,11 +1,11 @@
----  
-layout: post  
-title: "[Python] 여행 경로"  
-subtitle: "[Python] 여행 경로"  
+---
+layout: post
+title: "[Python] 여행 경로"
+subtitle: "[Python] 여행 경로"
 categories: Algorithm
 tags: 문제풀이 DFS 재귀 Recursion
-comments: true  
----  
+comments: true
+---
 
 ## [여행 경로](https://programmers.co.kr/learn/courses/30/lessons/43164)
 
@@ -26,7 +26,7 @@ comments: true
 
 ## 입출력 예
 
-![여행경로1](https://yunsikus.github.io/assets/img/post_img/여행경로1.jpg)
+![여행경로1](https://bernard-choi.github.io/assets/img/post_img/여행경로1.jpg)
 
 ## 입출력 예 설명
 
@@ -43,21 +43,21 @@ comments: true
 ## 풀이
 DFS와 재귀를 통해 풀 수 있습니다. dfs함수는 3개의 인자를 받습니다.
 
-- `tickets` : 사용할 수 있는 티켓 목록 
+- `tickets` : 사용할 수 있는 티켓 목록
 - `path` : 거쳐간 경로를 저장하기 위한 변수
 - `start` : 여행 시작 경로
 
-1) 반환 조건은 path의 길이가 N+1과 같아질때 입니다. 
+1) 반환 조건은 path의 길이가 N+1과 같아질때 입니다.
 
-2) 사용할 수 있는 티켓 목록중에서 start로 시작하는 티켓을 가져옵니다. 
-   
+2) 사용할 수 있는 티켓 목록중에서 start로 시작하는 티켓을 가져옵니다.
+
    - 1) 이때 사용한 티켓을 제거한 새로운 ticket 목록을 copy로 만듭니다. (`rest_ticket`)
-   
-   - 2) path에 start로 시작하는 티켓의 목적지를 추가합니다.
-   
-   - 3) start를 티켓의 목적지로 변경하여 다시 dfs를 호출합니다. 
 
-3) 가능한 경로가 2개 이상인 경우에는 알파벳 순서가 앞서는 경로를 return해야 합니다. 따라서 sort 해줍니다. 
+   - 2) path에 start로 시작하는 티켓의 목적지를 추가합니다.
+
+   - 3) start를 티켓의 목적지로 변경하여 다시 dfs를 호출합니다.
+
+3) 가능한 경로가 2개 이상인 경우에는 알파벳 순서가 앞서는 경로를 return해야 합니다. 따라서 sort 해줍니다.
 
 ```python
 import copy
@@ -65,18 +65,18 @@ import copy
 def solution(tickets):
     N = len(tickets)
     hubo = []
-    
+
     def dfs(tickets,path,start):
         if len(path) == N+1:
             hubo.append(path)
-            return 
+            return
 
         for i,p in enumerate(tickets):
             if p[0] == start:
                 rest_ticket = copy.deepcopy(tickets)
                 rest_ticket.pop(i)
                 dfs(rest_ticket, path+[p[1]], p[1])
-                
+
     dfs(tickets,['ICN'],'ICN')
     hubo.sort()
     return hubo[0]

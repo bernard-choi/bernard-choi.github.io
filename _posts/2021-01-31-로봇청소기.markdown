@@ -1,13 +1,13 @@
----  
-layout: post  
-title: "[Python]14503 로봇청소기"  
-subtitle: "[Python]14503 로봇청소기"  
+---
+layout: post
+title: "[Python]14503 로봇청소기"
+subtitle: "[Python]14503 로봇청소기"
 categories: Algorithm
 tags: 문제풀이 Dfs 시뮬레이션
-comments: true  
+comments: true
 
 
----  
+---
 ## [14503 로봇청소기](https://www.acmicpc.net/problem/14503)
 
 ## 문제
@@ -42,7 +42,7 @@ comments: true
 현재 방향을 기준으로 왼쪽 좌표 및 뒤쪽 좌표를 찾아내야함.
 
 현재 위치가 `북(0)`일때 왼쪽은 `서(3)`, `동(1)`일때 왼쪽은 `북(0)`, `남(2)`일때 왼쪽은 `동(1)`, `서(3)`일때 왼쪽은`남(2)`이다.
-즉 `(d+3)`를 `4`로 나눈 나머지를 새로운 `d`로 갱신함.  
+즉 `(d+3)`를 `4`로 나눈 나머지를 새로운 `d`로 갱신함.
 
 이때 새로운 좌표는 북동남서 순서대로 `x`, `y`좌표의 변화를 저장해둔 `dx` 와 `dy`를 인덱싱하여 접근할 수 있음.
 ```python
@@ -96,7 +96,7 @@ def dfs(x, y, d):
         return
     dfs(nx, ny, d) # 뒤쪽이 벽이 아니면 그 방향으로 이당하여 dfs시작
 
-if __name__ == "__main__":   
+if __name__ == "__main__":
     m, n = map(int,input().split())
     r, c, d = map(int,input().split())
     matrix = [list(map(int,input().split())) for _ in range(m)]

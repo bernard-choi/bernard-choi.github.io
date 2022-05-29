@@ -25,29 +25,29 @@ comments: true
 
 ## 풀이
 
-처음에는 DFS로 완전탐색으로 풀었으나 시간초과가 떴다. 동전의 가지수는 최대 20개로 20개의 depth를 가지고 매 depth별로 M // coin번 탐색해야 하므로 최대 10000 * 5000 * ...으로 내려가 1억 computation을 넘긴다. 즉, 제한시간 1초내에 풀 수 없다. 
+처음에는 DFS로 완전탐색으로 풀었으나 시간초과가 떴다. 동전의 가지수는 최대 20개로 20개의 depth를 가지고 매 depth별로 M // coin번 탐색해야 하므로 최대 10000 * 5000 * ...으로 내려가 1억 computation을 넘긴다. 즉, 제한시간 1초내에 풀 수 없다.
 
 다음, DP로 접근을 해보았다. coin이 2,3,5가 있고 M=10이라고 가정해보자.
 
-![동전1](https://yunsikus.github.io/assets/img/post_img/동전1.jpg)
+![동전1](https://bernard-choi.github.io/assets/img/post_img/동전1.jpg)
 
- 첫번째 경우인 2원을 가지고 목표금액인 10원까지 만드는 경우는 이렇게 끝난다. m=2일때 2원 동전이 한개 필요하다면 m=4일때는 m=2에서 2원짜리 동전을 추가해주면 된다. 
- 
- 즉, `m[i][j] += m[i][j-coin[i]]`가 된다. 
+ 첫번째 경우인 2원을 가지고 목표금액인 10원까지 만드는 경우는 이렇게 끝난다. m=2일때 2원 동전이 한개 필요하다면 m=4일때는 m=2에서 2원짜리 동전을 추가해주면 된다.
 
-![동전2](https://yunsikus.github.io/assets/img/post_img/동전2.jpg)
+ 즉, `m[i][j] += m[i][j-coin[i]]`가 된다.
+
+![동전2](https://bernard-choi.github.io/assets/img/post_img/동전2.jpg)
 
 다음은 3원과 5원의 경우도 추가한 것이다. m=6일때 2원으로만 만드는 경우는 1가지(2원*3개)이다. 3원으로 만들 수 있는 경우를 보자. 3원을 사용하지 않는 2원만 사용하는 경우를 더해줘야 한다.
 
-즉, `m[i][j] += m[i-1][j]`가 된다. 
+즉, `m[i][j] += m[i-1][j]`가 된다.
 
-정리해보면 전체 점화식은 다음과 같다. 
+정리해보면 전체 점화식은 다음과 같다.
 
 ```
 m[i][j] = m[i][j-coin[i]]+m[i-1][j]
 ```
 
-다만 이때 `j`가 `coin[i]`보다 클때만 `m[i][j-coin[i-1]]`을 더해주도록 한다. 
+다만 이때 `j`가 `coin[i]`보다 클때만 `m[i][j-coin[i-1]]`을 더해주도록 한다.
 
 ```python
 T = int(input())
@@ -60,12 +60,12 @@ for i in range(T):
     for i in range(len(coin)+1):
         dp[i][0] = 1
 
-    for i in range(1, len(coin)+1): 
+    for i in range(1, len(coin)+1):
         for j in range(1, M+1):
             if j >= coin[i-1]:
-                dp[i][j] = dp[i-1][j] + dp[i][j-coin[i-1]] 
+                dp[i][j] = dp[i-1][j] + dp[i][j-coin[i-1]]
             else:
                 dp[i][j] = dp[i-1][j]
-    
-    print(dp[-1][-1]) 
+
+    print(dp[-1][-1])
 ```

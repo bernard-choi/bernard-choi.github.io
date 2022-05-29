@@ -1,11 +1,11 @@
----  
+---
 layout: post
 title: "[SQL] Leetcode 184. Department Highest Salary"
-subtitle: "[SQL] Leetcode 184. Department Highest Salary"  
+subtitle: "[SQL] Leetcode 184. Department Highest Salary"
 categories: Data
 tags: SQL INNER-JOIN CASE
-comments: true  
----  
+comments: true
+---
 
 ## [184 Department Highest Salary](https://leetcode.com/problems/department-highest-salary/)
 
@@ -13,23 +13,23 @@ comments: true
 
 The Employee table holds all employees. Every employee has an id, a salary, and there is also a column for the department id.
 
-![leetcode_1](https://yunsikus.github.io/assets/img/post_img/leetcode184_1.jpg)
+![leetcode_1](https://bernard-choi.github.io/assets/img/post_img/leetcode184_1.jpg)
 
 The Department table holds all departments of the company
 
-![leetcode_2](https://yunsikus.github.io/assets/img/post_img/leetcode184_2.jpg)
+![leetcode_2](https://bernard-choi.github.io/assets/img/post_img/leetcode184_2.jpg)
 
 Write a SQL query to find employees who have the highest salary in each of the departments. For the above tables, your SQL query should return the following rows(order of rows does not matter).
 
-![leetcode_3](https://yunsikus.github.io/assets/img/post_img/leetcode184_3.jpg)
+![leetcode_3](https://bernard-choi.github.io/assets/img/post_img/leetcode184_3.jpg)
 
 Explanation: Max and Jom both have the highest salary in the IT department and Henry has the highest salary in the Sales department
 
 ## 2. 풀이
 
-- Case문으로 1인 경우 `IT`, 2인 경우 `Sales`로 바꿔준다. 
-- Group by로 max값을 뽑으면 `IT` 부서에서 `Jim`만 뽑힌다. Inner Join을 통해 `Jim`, `Max` 모두 뽑아야 한다. 
-  - `Departmentid`, `Salary의 max값` 두 컬럼을 추출한 후 원래 raw table에 inner join한다. 
+- Case문으로 1인 경우 `IT`, 2인 경우 `Sales`로 바꿔준다.
+- Group by로 max값을 뽑으면 `IT` 부서에서 `Jim`만 뽑힌다. Inner Join을 통해 `Jim`, `Max` 모두 뽑아야 한다.
+  - `Departmentid`, `Salary의 max값` 두 컬럼을 추출한 후 원래 raw table에 inner join한다.
 
 ```SQL
 SELECT
