@@ -6,7 +6,6 @@ categories: Blog
 tags: Airbnb
 comments: true
 ---
-
 ## 원문 주소
 
 [https://medium.com/airbnb-engineering/how-airbnb-achieved-metric-consistency-at-scale-f23cc53dea70](https://medium.com/airbnb-engineering/how-airbnb-achieved-metric-consistency-at-scale-f23cc53dea70)
@@ -28,7 +27,7 @@ comments: true
 - 데이터의 급격한 증가로 인해, 데이터 공급 혹은 소비자들에게 많은 문제가 발생했다.
 - 분석, 예측, 실험 용도로 다양한 core data 테이블들을 생성했다. 그러나 비슷한 테이블들이 이미 있는지 확인이 안되었다. 앞단의 데이터 이슈가 변경되면, 뒷단의 데이터들이 문제 없는지 보장을 못하는 상황이 발생한다. dependency를 디버깅하는데 많은 시간이 소요된다. 이러한 작업들은 종종 비생산적이고 무기력감을 준다. 아래 사진을 보면, Core Data 위에 complex한 테이블들이 여러개 쌓이게 되고 이는 growing pain이 된다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/120fbaee-cc04-41db-8b5e-1c2803fbd6d1/Untitled.png)
+![Minerva1.jpg](https://bernard-choi.github.io/assets/img/post_img/minerva1.jpg)
 
 - business metric이 team별로 상이한 문제가 발생한다.
     - *For data comsumption, we heard complaints from decision makers that different teams reported different numbers for very simple business questions, and there was no easy way to know which number was correct.*
@@ -41,14 +40,16 @@ comments: true
 - 이 단계에서 Minerva 툴이 등장했다. Minerva는 Fact, Dimension 테이블들을 Input으로 받고,Denormalization, Aggregation을 맡아 downstream application들에 전달한다. Minerva API는 업스트림 데이터와 다운스트림 소비간의 차이를 매워주므로 DE팀은 다양한 다운스트림 소비자에 대한 지원을 유지하면서 core table을 유연하게 수정할 수 있다. 이 API는 Airbnb의 차세대 데이터웨어하우스 아키텍쳐에서 중요한 역할을 한다.
 - Minerva에는 12000개의 metric, 4000개의 dimension이 있으며 200개 이상의 데이터 생산자가 다양한 기능(예: Data, Product Management, Finance, Engineering)과 팀(예: Core Product, Trust, Payment)에 걸쳐 있다.
 
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3aa7c9c9-1738-4ce3-9927-94a4a267cb18/Untitled.png)
+ ![Minerva2.jpg](https://bernard-choi.github.io/assets/img/post_img/minerva2.jpg)
+
 
 
 ## Data Production in Minerva
 
 - 인프라 관점에서 Minerva는 오픈소스 프로젝트 위에 구축된다. worflow ochestration을 위해 Airflow를 사용하고 컴퓨팅 엔진으로 Apache Hive와 Apache Spark를 사용하며, Data Consumption으로 Presto와 Apache Druid를 사용한다. Metric 생성부터 계산 서빙 소비 그리고 결국 폐지까지 Minerva는 metric의 전체 수명 주기를 다룬다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5d3b95e9-cf96-42bf-a27c-c3528f6354d7/Untitled.png)
+![Minerva3.jpg](https://bernard-choi.github.io/assets/img/post_img/minerva3.jpg)
+
 
 - Metrics Definition
     - 핵심 비즈니스 지표, dimensions, metadata등을 전 사원이 업데이트 할 수 있는 Github repository안에서 볼 수 있도록 관리한다.
@@ -75,19 +76,22 @@ comments: true
     - 생성된 지표는 대시보드(ex Superset)에서 쉽게 접근할 수 있어야 한다.
     - A/B 테스팅 플랫폼인 ERF, anomaly detection algorothm등에 추적될 수 있어야 한다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9493c941-47e3-4dfa-9c29-65f30829d24a/Untitled.png)
+![Minerva4.jpg](https://bernard-choi.github.io/assets/img/post_img/minerva4.jpg)
+
 
 ## Data Catalog
 
 - `Dataportal`에 모든 Minerva metric과 dimensions를 연결시킨다. Dataportal에서 search할 경우 Minerva의 metric을 최상단에 보여준다. certification status, ownership, popularity와 같은 문맥 정보들도 넣는다. 비개발자들에게 Dataportal은 Minerva의 metric에 대한 첫번째 진입점이다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/10038bd8-d757-4e98-b7eb-1540a061a289/Untitled.png)
+![Minerva5.jpg](https://bernard-choi.github.io/assets/img/post_img/minerva5.jpg)
+
 
 ## Data Exploration
 
 - `Dataportal`에서 누르면 바로 쓸 수 있는 data exploration 페이지에 접속할 수 있다. group by, filter등을 이용하여 데이터들을 slicing, drill down 하여 볼 수 있다. superset view를 통해 더 고도화된 분석을 할 수 있다. metric owners, historical landing time, metric description등 데이터 문맥 정보들도 확인 할 수 있다. 데이터, 비데이터 직군의 관계 없이 데이터로부터 인사이트를 추출할 수 있도록 설계된 디자인이다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fedff434-96b9-4a29-ac04-ae8d446a6928/Untitled.png)
+![Minerva6.jpg](https://bernard-choi.github.io/assets/img/post_img/minerva6.jpg)
+
 
 ## A/B Testing
 
@@ -102,7 +106,8 @@ comments: true
     - metric과 dimension을 받아서 시계열 데이터로 변환해준다.
     - 수동적인 작업들을 자동화함.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ac33d35f-be22-4a64-add9-f86b4ac85bbf/Untitled.png)
+![Minerva7.jpg](https://bernard-choi.github.io/assets/img/post_img/minerva7.jpg)
+
 
 ## Data Analysis
 
