@@ -6,6 +6,7 @@ categories: Blog
 tags: Airbnb
 comments: true
 ---
+
 ## 원문 주소
 
 [https://medium.com/airbnb-engineering/how-airbnb-achieved-metric-consistency-at-scale-f23cc53dea70](https://medium.com/airbnb-engineering/how-airbnb-achieved-metric-consistency-at-scale-f23cc53dea70)
