@@ -9,7 +9,7 @@ comments: true
 
 ## Serializable Isolation이란?
 
-- Redshift의 default isolation level은 `Serializable임`.(변경 불가)
+- Redshift의 default isolation level은 `Serializable임`(변경 불가)
 - 가장 단순하면서 엄격한 격리수준이지만 동시 처리 성능이 가장 낮다.
 - `Reapeatable Read`, `Phantom Read`와 같은 현상은 발생하지 않는다.
 - 예를 들어, Table1에 write하는 T1과 T2가 동시에 실행된다고 하자.
@@ -31,7 +31,7 @@ Scenario 2 -> 1
    - **만약 T2에서 insert a row, T1에서 insert, select한 다음 T2에서 select 하면 output은 t1은 1 row t2는 2 row가 된다.**
    - T1과 T2를 어느 순서로 실행시키더라도 이러한 결과는 나오지 않는다.(`violation`)
 
-- `violation`을 잡아내기 위헤, Redshift는 다음 statement들이 수행될때마다 `snapshot`을 찍어낸다.
+- `violation`을 잡아내기 위해, Redshift는 다음 statement들이 수행될때마다 `snapshot`을 찍어낸다.
   - select, copy, delete, insert, update, truncate, alter table, create table, drop table, truncate table
 
 
