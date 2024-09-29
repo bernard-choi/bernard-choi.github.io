@@ -1,0 +1,51 @@
+---
+layout: post
+title: "[Python] 주식가격"
+subtitle: "[Python] 주식가격"
+categories: Algorithm
+tags: 문제풀이 Stack Queue 스택 큐
+comments: true
+---
+
+## [도둑질](https://programmers.co.kr/learn/courses/30/lessons/42897)
+
+## 문제 설명
+
+초 단위로 기록된 주식가격이 담긴 배열 prices가 매개변수로 주어질 때, 가격이 떨어지지 않은 기간은 몇 초인지를 return 하도록 solution 함수를 완성하세요.
+
+## 제한사항
+
+- prices의 각 가격은 1 이상 10,000 이하인 자연수입니다.
+- prices의 길이는 2 이상 100,000 이하입니다.
+
+## 입출력 예
+
+- prices: `[1,2,3,2,3]`
+- return: `[4,3,1,1,0]`
+
+1초 시점의 ₩1은 끝까지 가격이 떨어지지 않았습니다.
+2초 시점의 ₩2은 끝까지 가격이 떨어지지 않았습니다.
+3초 시점의 ₩3은 1초뒤에 가격이 떨어집니다. 따라서 1초간 가격이 떨어지지 않은 것으로 봅니다.
+4초 시점의 ₩2은 1초간 가격이 떨어지지 않았습니다.
+5초 시점의 ₩3은 0초간 가격이 떨어지지 않았습니다.
+
+## 풀이
+
+- 주식이 상승장일때의 정보를 알고 있다가 스택에 저장.
+- 시간이 지나감에 따라 주식이 하락장이 왔을 때, 상승장때 샀던 정보들을 스택에서 꺼내서 현재 가격보다 비싸면 스택에서 제거
+- 상승장일때의 정보는 항상 상승장일때만 등록되기 때문에 자연스럽게 오름차순으로 정렬됨. 매번 모든 가격을 비교하지 않고 스택의 마지막 가격만 비교하면 되기 때문에 시간 복잡도 N으로 해결 가능함.
+
+```python
+def solution(prices):
+    queue = [[0, prices[0]]]
+    answer = [0] * len(prices)
+    for i in range(1, len(prices)):
+        for pos, price in queue:
+            answer[pos] += 1
+        while queue and queue[-1][1] > prices[i]: # 하락했을 때, 스택의 맨 끝 가격과 비교. 하락한 가격이 맨 끝 가격보다 싸면 제거.
+            queue.pop()
+
+        queue.append([i, prices[i]])
+
+    return answer
+```
