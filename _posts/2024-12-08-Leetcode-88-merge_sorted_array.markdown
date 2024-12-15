@@ -8,7 +8,7 @@ comments: true
 
 
 ---
-## [Leetcode 125 Valid Parlindrome](https://leetcode.com/problems/remove-duplicate-letters/description/)
+## [Leetcode 88 Merge Sorted Array](https://leetcode.com/problems/remove-duplicate-letters/description/)
 
 ## 문제
 
@@ -26,28 +26,30 @@ The final sorted array should not be returned by the function, but instead be st
 
 ## 풀이
 
-- 가장 간단한 풀이는 string을 뒤집어서 일치하는지 확인
-    - Time Complexity는 string s를 순회하므로 O(n).
-    - Space Complexity는 뒤집은 s를 담아야하므로 O(n)
-- 투 포인터를 이용하면 Space Complexity O(1)으로 풀 수 있음.
+- 간단한 풀이는 두 리스트를 합치고 sort 하는 것. 
+    - 그러나 이 풀이는 Time Complexity: O((n+m)log(n+m)), Space Complexity: O(n) 
+    - 대부분의 프로그래밍 언어의 built-in sorting algorithm은 O(n)
+-  투포인터로 풀면 Time Complexity: O(n+m), Space Complexity: O(m)
+   -  m 길이의 추가 배열을 선언하기 때문 (nums1_copy)
 
 
 ```python
 class Solution:
-    def isPalindrome(self, s: str) -> bool:
-        start = 0
-        end = len(s)-1
-        while start < end:
-            while start < end and not s[start].isalnum():
-                start += 1
-            while start < end and not s[end].isalnum():
-                end -= 1
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        i = 0
+        j = 0
+        nums1_copy = nums1[:m+n]
+        for p in range(m+n):
+            if j >= n or (i < m and nums1_copy[i] <= nums2[j]):
+                nums1[p] = nums1_copy[i]
+                i += 1
+            else:
+                nums1[p] = nums2[j]
+                j += 1
 
-            if s[start].lower() != s[end].lower():
-                return False
-
-            start += 1
-            end -= 1
-        return True
+        return
 ```
 
