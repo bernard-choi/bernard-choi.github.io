@@ -36,6 +36,8 @@ comments: true
   - 왼쪽 자식의 인덱스 = (부모의 인덱스) * 2
   - 오른쪽 자식의 인덱스 = (부모의 인덱스) * 2 + 1
 
+- 시간복잡도: O(N)
+
 ![힙2](https://bernard-choi.github.io/assets/img/post_img/힙2.jpg)
 
 
@@ -43,6 +45,7 @@ comments: true
 - 합에 새로운 요소가 들어오면, 일단 새로운 노드를 힙의 마지막 노드에 이어서 삽입한다.
 - 새로운 노드를 부모 노드들과 교환해서 힙의 성질을 만족시킨다.
 - 아래의 최대 힙(max heap)에 새로운 요소 8을 삽입
+- 시간 복잡도: O(logN)
 
 ![힙3](https://bernard-choi.github.io/assets/img/post_img/힙3.jpg)
 
@@ -52,6 +55,7 @@ comments: true
 - 삭제된 루트 노드에는 힙의 마지막 노드를 가져온다.
 - 힙을 재구성한다.
 - 아래의 최대 힙(max heap)에서 최댓값을 삭제해보자.
+- 시간 복잡도: O(logN)
 
 ![힙4](https://bernard-choi.github.io/assets/img/post_img/힙4.jpg)
 
