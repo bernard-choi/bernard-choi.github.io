@@ -27,6 +27,48 @@ The test cases are generated such that the number of unique combinations that su
 
 - dfs로 풀 수 있음. 중복된 조합(combination)을 방지하기 위해 dfs인자에 start를 넣고 항상 start 이후부터 시작하도록 한다.
 
+- 왜 start 이후부터 시작하는지?
+- 예를 들어, [2, 3, 5] 조합으로 5을 만드는 방법을 생각해보자
+  - 2를 사용한 모든 경우의 수를 체크했기 때문에, 3부터 시작할때는 2를 제외해도 됨.
+
+```
+candidats = [2, 3, 5]
+target = 8
+
+[]
+    [2]
+        [2, 2]
+            [2, 2, 2]
+                [2, 2, 2, 2] = 8
+                [2, 2, 2, 3] = 9
+                [2, 2, 2, 5] = 11
+            [2, 2, 3]
+                [2, 2, 3, 2] = 9
+                [2, 2, 3, 3]  X
+                [2, 2, 3, 5] X
+            [2, 2, 5] X
+        [2, 3]
+            [2, 3, 2]
+                [2, 3, 2, 2] X
+                [2, 3, 2, 3] X
+                [2, 3, 2, 5] X
+            [2, 3, 3] O
+            [2, 3, 5] X
+        [2, 5]
+            [2, 5, 2] X
+            [2, 5, 3] X
+            [2, 5, 5] X
+
+    [3] -- 위에서 2가 들어간 모든 경우의 수를 계산했기 떄문에 2를 제외해도 됨.
+        [3, 3]
+            [3, 3, 3] X
+            [3, 3, 5] X
+        [3, 5]
+            [3, 5, 3] X
+            [3, 5] O
+    [5] X
+```
+
 ```python
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
