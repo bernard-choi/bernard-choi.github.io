@@ -35,6 +35,11 @@ True
 
 
 ```python
+# node4 = ListNode(4)          # 마지막 노드 (next가 None)
+# node3 = ListNode(3, node4)   # node3의 next가 node4를 가리킴
+# node2 = ListNode(2, node3)   # node2의 next가 node3을 가리킴
+# node1 = ListNode(1, node2)   # node1의 next가 node2를 가리킴
+
 def isPalindrome(self, head: ListNode) -> bool:
     q: List = []
     if not head:

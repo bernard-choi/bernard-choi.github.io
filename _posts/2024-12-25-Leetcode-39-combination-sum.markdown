@@ -80,7 +80,7 @@ class Solution:
             elif temp_sum == target:
                 res.append(answer)
                 return
-            for i in range(start, len(candidates)):
+            for i in range(start, len(candidates)): ## start가 0이라면 2, 3, 5 셋다 쓸꺼고, start가 1이라면 3, 5만 쓴다는 뜻
                 dfs(temp_sum+candidates[i], answer + [candidates[i]], i)
         dfs(0, [], 0)
 
