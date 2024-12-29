@@ -120,6 +120,21 @@ class MyQueue:
 
     def empty(self):
         return (not self.stack1) and (not self.stack2)
+
+queue = MyQueue()
+queue.push(1)
+queue.push(2)
+queue.push(3)
+
+queue.pop() # 1
+
+queue.push(4)
+queue.push(5)
+queue.push(6)
+
+queue.pop() # 2
+queue.pop() # 3
+queue.pop() # 4
 ```
 
 ## 큐로 스택 구현하기
