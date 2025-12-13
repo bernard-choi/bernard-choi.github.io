@@ -8,7 +8,7 @@ comments: true
 
 
 ---
-## [Leetcode 206. Reverse Linked List](https://leetcode.com/problems/merge-two-sorted-lists/description/)
+## [Leetcode 21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/description/)
 
 ## 문제
 
@@ -62,7 +62,7 @@ class Solution:
 
 - linkedlist 구현 코드도 추가
 
-```
+```python
 class Node:
     def __init__(self, x):
         self.data = x
